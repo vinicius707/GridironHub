@@ -19,18 +19,20 @@ const config: Config = {
     '!src/**/*.d.ts',
     '!src/**/index.ts',
     '!src/app/layout.tsx',
+    '!src/app/page.tsx', // Página padrão do Next.js
+    '!src/infrastructure/api/nfl/client.ts', // Cliente da API (testes de integração)
   ],
 
   // Diretório de cobertura
   coverageDirectory: 'coverage',
 
-  // Thresholds de cobertura
+  // Thresholds de cobertura (ajustado para MVP)
   coverageThreshold: {
     global: {
-      branches: 70,
-      functions: 70,
-      lines: 70,
-      statements: 70,
+      branches: 80,
+      functions: 80,
+      lines: 80,
+      statements: 80,
     },
   },
 
