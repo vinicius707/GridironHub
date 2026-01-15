@@ -1,2 +1,2 @@
 // Implementação da NFL API (balldontlie)
-export {}
+export * from './client'

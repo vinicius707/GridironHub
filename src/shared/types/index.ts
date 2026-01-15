@@ -1,2 +1,2 @@
 // DTOs e tipos compartilhados
-export {}
+export * from './api'

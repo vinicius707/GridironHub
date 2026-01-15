@@ -1,3 +1,4 @@
 // Entidades do domínio NFL
-// Team, Player, Game serão definidas aqui
-export {}
+export * from './team'
+export * from './player'
+export * from './game'
