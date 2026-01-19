@@ -64,8 +64,9 @@ describe('Navbar Component', () => {
   it('deve renderizar o logo/brand', () => {
     render(<Navbar />)
 
-    const logoLink = screen.getByLabelText('Início')
-    expect(logoLink).toBeInTheDocument()
+    const logoLinks = screen.getAllByLabelText('Início')
+    expect(logoLinks.length).toBeGreaterThan(0)
+    const logoLink = logoLinks[0]
     expect(logoLink).toHaveAttribute('href', '/')
     expect(screen.getByText('GridironHub')).toBeInTheDocument()
   })
