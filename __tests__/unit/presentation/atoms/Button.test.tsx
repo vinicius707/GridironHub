@@ -65,7 +65,8 @@ describe('Button Component', () => {
   it('deve exibir loading quando isLoading é true', () => {
     render(<Button isLoading>Teste</Button>)
 
-    expect(screen.getByText(/carregando/i)).toBeInTheDocument()
+    expect(screen.getByText(/carregando\.\.\./i)).toBeInTheDocument()
+    expect(screen.getByText('Carregando', { selector: '.sr-only' })).toBeInTheDocument()
   })
 
   it('deve chamar onClick quando clicado', async () => {

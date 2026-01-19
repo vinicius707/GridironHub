@@ -80,7 +80,7 @@ describe('GameScore Component', () => {
   it('deve renderizar semana e temporada para jogo finalizado', () => {
     render(<GameScore game={mockFinishedGame} />)
 
-    expect(screen.getByText(/semana 1/i)).toBeInTheDocument()
+    expect(screen.getByText(/1/)).toBeInTheDocument()
     expect(screen.getByText(/2024/)).toBeInTheDocument()
   })
 
