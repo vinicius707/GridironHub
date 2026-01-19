@@ -3,16 +3,20 @@
     "home": "Home",
     "teams": "Teams",
     "players": "Players",
-    "games": "Games"
+    "games": "Games",
+    "navigation": "Main navigation"
   },
   "language": {
     "pt": "Português",
     "en": "English",
-    "change": "Change language"
+    "change": "Change language",
+    "current": "Current language",
+    "select": "Select a language"
   },
   "menu": {
     "open": "Open menu",
-    "close": "Close menu"
+    "close": "Close menu",
+    "mobile": "Mobile menu"
   },
   "common": {
     "loading": "Loading...",
