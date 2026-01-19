@@ -20,11 +20,11 @@ export function Badge({
   const baseStyles = 'inline-flex items-center rounded-full font-medium'
 
   const variants = {
-    default: 'bg-gray-100 text-gray-800',
-    success: 'bg-green-100 text-green-800',
-    warning: 'bg-yellow-100 text-yellow-800',
-    error: 'bg-red-100 text-red-800',
-    info: 'bg-blue-100 text-blue-800',
+    default: 'bg-gray-100 text-gray-900',
+    success: 'bg-green-100 text-green-900',
+    warning: 'bg-yellow-100 text-yellow-900',
+    error: 'bg-red-100 text-red-900',
+    info: 'bg-blue-100 text-blue-900',
   }
 
   const sizes = {
@@ -35,7 +35,12 @@ export function Badge({
   const classes = `${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`
 
   return (
-    <span className={classes} {...props}>
+    <span
+      className={classes}
+      role="status"
+      aria-label={typeof children === 'string' ? children : undefined}
+      {...props}
+    >
       {children}
     </span>
   )

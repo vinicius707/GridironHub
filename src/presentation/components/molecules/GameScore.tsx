@@ -17,22 +17,38 @@ export function GameScore({ game, showDate = false }: GameScoreProps) {
   const isFinished = isGameFinished(game)
   const scoreDisplay = getGameScoreDisplay(game)
 
+  const statusLabel = isFinished
+    ? 'Finalizado'
+    : game.status === 'In Progress'
+      ? 'Em andamento'
+      : 'Agendado'
+
   return (
-    <div className="p-4 bg-white rounded-lg border border-gray-200">
+    <article
+      className="p-4 bg-white rounded-lg border border-gray-200"
+      aria-labelledby={`game-${game.id}-title`}
+    >
       {showDate && (
         <Text size="sm" color="muted" className="mb-2">
-          {game.date}
+          <time dateTime={game.date}>{game.date}</time>
         </Text>
       )}
 
       <div className="flex items-center justify-between">
         <div className="flex-1">
+          <h3 id={`game-${game.id}-title`} className="sr-only">
+            Partida entre {game.visitorTeam.fullName} e {game.homeTeam.fullName} - {statusLabel}
+          </h3>
           <div className="flex items-center gap-2 mb-2">
             <Text size="sm" weight="medium">
               {game.visitorTeam.fullName}
             </Text>
             {isFinished && (
-              <Text size="lg" weight="bold">
+              <Text
+                size="lg"
+                weight="bold"
+                aria-label={`${game.visitorTeam.fullName} ${game.visitorTeamScore} pontos`}
+              >
                 {game.visitorTeamScore}
               </Text>
             )}
@@ -43,7 +59,11 @@ export function GameScore({ game, showDate = false }: GameScoreProps) {
               {game.homeTeam.fullName}
             </Text>
             {isFinished && (
-              <Text size="lg" weight="bold">
+              <Text
+                size="lg"
+                weight="bold"
+                aria-label={`${game.homeTeam.fullName} ${game.homeTeamScore} pontos`}
+              >
                 {game.homeTeamScore}
               </Text>
             )}
@@ -54,6 +74,7 @@ export function GameScore({ game, showDate = false }: GameScoreProps) {
           <Badge
             variant={isFinished ? 'default' : game.status === 'In Progress' ? 'warning' : 'info'}
             size="sm"
+            aria-label={`Status: ${statusLabel}`}
           >
             {game.status}
           </Badge>
@@ -67,9 +88,10 @@ export function GameScore({ game, showDate = false }: GameScoreProps) {
 
       {isFinished && (
         <Text size="sm" color="muted" className="mt-2">
-          Semana {game.week} - {game.season}
+          <span className="sr-only">Semana</span> {game.week} -{' '}
+          <span className="sr-only">Temporada</span> {game.season}
         </Text>
       )}
-    </div>
+    </article>
   )
 }
