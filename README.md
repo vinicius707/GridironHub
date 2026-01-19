@@ -50,7 +50,11 @@ src/
 └── shared/                 # Tipos e utilitários compartilhados
 ```
 
-Para mais detalhes, consulte [ARCHITECTURE.md](./docs/ARCHITECTURE.md).
+Para mais detalhes:
+
+- [Arquitetura](./docs/ARCHITECTURE.md) - Clean Architecture e camadas
+- [Sistema de Design](./docs/COMPONENTS.md) - Atomic Design e componentes
+- [API](./docs/API.md) - Integração com balldontlie API
 
 ## 🚀 Começando
 
