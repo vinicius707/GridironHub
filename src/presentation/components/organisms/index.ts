@@ -1,2 +1,2 @@
-// Componentes organismos: TeamGrid, PlayerTable, GamesTable
-export {}
+// Componentes organismos: Navbar
+export * from './Navbar'
