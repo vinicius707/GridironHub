@@ -6,8 +6,8 @@ import type { IPlayerRepository, FindPlayersParams } from '@/domain/repositories
 import type { Player } from '@/domain/entities'
 import { mapPlayerFromDTO, mapTeamFromDTO } from '@/domain/entities'
 import type { PaginatedResponse } from '@/shared/types'
-import { mapPaginationMeta } from '@/shared/types'
 import type { NflApiClient, GetPlayersParams } from '@/infrastructure/api/nfl/client'
+import { mapPaginatedResponse } from '@/application/helpers'
 
 /**
  * Implementação concreta do repositório de jogadores
@@ -39,10 +39,7 @@ export class NflPlayerRepository implements IPlayerRepository {
     const apiParams = this.mapParams(params)
     const response = await this.apiClient.getPlayers(apiParams)
 
-    return {
-      data: response.data.map((dto) => mapPlayerFromDTO(dto, mapTeamFromDTO)),
-      meta: mapPaginationMeta(response.meta),
-    }
+    return mapPaginatedResponse(response, (dto) => mapPlayerFromDTO(dto, mapTeamFromDTO))
   }
 
   /**

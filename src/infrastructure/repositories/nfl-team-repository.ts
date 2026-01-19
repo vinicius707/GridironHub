@@ -6,6 +6,7 @@ import type { ITeamRepository, Conference, Division } from '@/domain/repositorie
 import type { Team } from '@/domain/entities'
 import { mapTeamFromDTO } from '@/domain/entities'
 import type { NflApiClient } from '@/infrastructure/api/nfl/client'
+import { mapList } from '@/application/helpers'
 
 /**
  * Implementação concreta do repositório de times
@@ -19,7 +20,7 @@ export class NflTeamRepository implements ITeamRepository {
    */
   async findAll(): Promise<Team[]> {
     const response = await this.apiClient.getTeams()
-    return response.data.map(mapTeamFromDTO)
+    return mapList(response.data, mapTeamFromDTO)
   }
 
   /**

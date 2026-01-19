@@ -6,8 +6,8 @@ import type { IGameRepository, FindGamesParams } from '@/domain/repositories'
 import type { Game } from '@/domain/entities'
 import { mapGameFromDTO, mapTeamFromDTO } from '@/domain/entities'
 import type { PaginatedResponse } from '@/shared/types'
-import { mapPaginationMeta } from '@/shared/types'
 import type { NflApiClient, GetGamesParams } from '@/infrastructure/api/nfl/client'
+import { mapPaginatedResponse } from '@/application/helpers'
 
 /**
  * Implementação concreta do repositório de partidas
@@ -40,10 +40,7 @@ export class NflGameRepository implements IGameRepository {
     const apiParams = this.mapParams(params)
     const response = await this.apiClient.getGames(apiParams)
 
-    return {
-      data: response.data.map((dto) => mapGameFromDTO(dto, mapTeamFromDTO)),
-      meta: mapPaginationMeta(response.meta),
-    }
+    return mapPaginatedResponse(response, (dto) => mapGameFromDTO(dto, mapTeamFromDTO))
   }
 
   /**
