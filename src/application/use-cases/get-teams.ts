@@ -3,7 +3,6 @@
  * Refatorado para usar repositórios e Dependency Injection
  */
 
-import type { ITeamRepository } from '@/domain/repositories'
 import type { Team } from '@/domain/entities'
 import { getContainer } from '@/application/dependencies'
 

@@ -3,7 +3,7 @@
  * Refatorado para usar repositórios e Dependency Injection
  */
 
-import type { IPlayerRepository, FindPlayersParams } from '@/domain/repositories'
+import type { FindPlayersParams } from '@/domain/repositories'
 import type { Player } from '@/domain/entities'
 import type { PaginatedResponse } from '@/shared/types'
 import { getContainer } from '@/application/dependencies'

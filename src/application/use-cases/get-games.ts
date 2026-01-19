@@ -3,7 +3,7 @@
  * Refatorado para usar repositórios e Dependency Injection
  */
 
-import type { IGameRepository, FindGamesParams } from '@/domain/repositories'
+import type { FindGamesParams } from '@/domain/repositories'
 import type { Game } from '@/domain/entities'
 import type { PaginatedResponse } from '@/shared/types'
 import { getContainer } from '@/application/dependencies'
