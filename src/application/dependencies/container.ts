@@ -9,7 +9,8 @@ import {
   NflPlayerRepository,
   NflGameRepository,
 } from '@/infrastructure/repositories'
-import { NflApiClient, getNflApiClient } from '@/infrastructure/api/nfl/client'
+import type { NflApiClient } from '@/infrastructure/api/nfl/client'
+import { getNflApiClient } from '@/infrastructure/api/nfl/client'
 
 /**
  * Container de dependências

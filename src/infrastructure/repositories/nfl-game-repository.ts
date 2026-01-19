@@ -7,7 +7,7 @@ import type { Game } from '@/domain/entities'
 import { mapGameFromDTO, mapTeamFromDTO } from '@/domain/entities'
 import type { PaginatedResponse } from '@/shared/types'
 import { mapPaginationMeta } from '@/shared/types'
-import { NflApiClient, type GetGamesParams } from '@/infrastructure/api/nfl/client'
+import type { NflApiClient, GetGamesParams } from '@/infrastructure/api/nfl/client'
 
 /**
  * Implementação concreta do repositório de partidas
@@ -53,7 +53,7 @@ export class NflGameRepository implements IGameRepository {
     try {
       const response = await this.apiClient.getGameById(id)
       return mapGameFromDTO(response.data, mapTeamFromDTO)
-    } catch (error) {
+    } catch (_error) {
       // TODO: Melhorar tratamento de erro (verificar se é 404)
       return null
     }
