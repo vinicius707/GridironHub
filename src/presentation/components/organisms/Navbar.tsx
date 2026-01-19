@@ -1,6 +1,6 @@
 'use client'
 
-import { useTranslations, useLocale } from 'next-intl'
+import { useTranslations } from 'next-intl'
 import { Link, usePathname } from '@/i18n/routing'
 import { HamburgerMenu } from '@/presentation/components/molecules'
 import { LanguageToggle } from '@/presentation/components/molecules'
@@ -12,7 +12,6 @@ export interface NavbarProps extends Omit<ComponentProps<'nav'>, 'children'> {
 
 export function Navbar({ className = '', ...props }: NavbarProps) {
   const t = useTranslations('nav')
-  const locale = useLocale()
   const pathname = usePathname()
 
   // Links de navegação com tradução baseada no locale
