@@ -1,15 +1,37 @@
+import { Geist, Geist_Mono } from 'next/font/google'
+import './globals.css'
+
+const geistSans = Geist({
+  variable: '--font-geist-sans',
+  subsets: ['latin'],
+})
+
+const geistMono = Geist_Mono({
+  variable: '--font-geist-mono',
+  subsets: ['latin'],
+})
+
 /**
  * Root Layout
- * Este layout é usado apenas como fallback até que o middleware redirecione para [locale]
+ * O Next.js requer um root layout com <html> e <body>.
+ * Este layout é o único que deve ter essas tags - o LocaleLayout apenas fornece conteúdo.
  */
-
-import { redirect } from 'next/navigation'
-
 export default function RootLayout({
-  children: _children,
+  children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  // Redireciona para o locale padrão
-  redirect('/pt')
+  // O Next.js requer <html> e <body> no root layout.
+  // Este é o único layout que deve ter essas tags.
+  // O LocaleLayout em [locale]/layout.tsx renderiza apenas o conteúdo.
+  return (
+    <html lang="pt" suppressHydrationWarning>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        suppressHydrationWarning
+      >
+        {children}
+      </body>
+    </html>
+  )
 }
