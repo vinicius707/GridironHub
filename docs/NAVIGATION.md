@@ -16,7 +16,7 @@ O sistema de i18n está configurado usando `next-intl` para Next.js 16 App Route
 
 - `src/i18n/routing.ts` - Configuração de rotas e navegação tipada
 - `src/i18n/request.ts` - Helper para obter locale no servidor
-- `src/middleware.ts` - Middleware para detectar e redirecionar por idioma
+- `src/proxy.ts` - Proxy para detectar e redirecionar por idioma (Next.js 16+)
 - `messages/pt.json` - Traduções em português
 - `messages/en.json` - Traduções em inglês
 
@@ -27,7 +27,7 @@ O sistema de i18n está configurado usando `next-intl` para Next.js 16 App Route
 
 ### Detecção de Idioma
 
-O middleware detecta o idioma em ordem de prioridade:
+O proxy detecta o idioma em ordem de prioridade:
 
 1. Cookie `NEXT_LOCALE` (preferência salva do usuário)
 2. Header `Accept-Language` do navegador
@@ -333,9 +333,9 @@ npm test __tests__/unit/presentation/templates/PageLayout.test.tsx
 }
 ```
 
-## Middleware
+## Proxy
 
-O middleware (`src/middleware.ts`) é responsável por:
+O proxy (`src/proxy.ts`) é responsável por:
 
 - Detectar o idioma preferido do usuário
 - Redirecionar para a rota correta com locale
@@ -401,7 +401,7 @@ export function CustomHeader() {
 
 ### Idioma não está sendo detectado
 
-Verifique se o middleware está configurado corretamente e se as traduções estão nos arquivos JSON corretos.
+Verifique se o proxy está configurado corretamente e se as traduções estão nos arquivos JSON corretos.
 
 ### Links não funcionam
 
