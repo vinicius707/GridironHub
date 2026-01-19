@@ -22,11 +22,15 @@ const mockLinks = [
 ]
 
 jest.mock('@/i18n/routing', () => ({
-  ...jest.requireActual('@/i18n/routing'),
   Link: ({ children, href }: { children: React.ReactNode; href: string }) => (
     <a href={href}>{children}</a>
   ),
   usePathname: () => '/',
+  useRouter: () => ({
+    push: jest.fn(),
+    replace: jest.fn(),
+    prefetch: jest.fn(),
+  }),
 }))
 
 jest.mock('next-intl', () => ({
@@ -44,7 +48,9 @@ jest.mock('next-intl', () => ({
 }))
 
 jest.mock('@/presentation/components/molecules/LanguageToggle', () => ({
-  LanguageToggle: () => <button>Language Toggle</button>,
+  LanguageToggle: ({ variant }: { variant?: string }) => (
+    <button data-testid="language-toggle">{variant || 'button'}</button>
+  ),
 }))
 
 describe('HamburgerMenu Component', () => {
