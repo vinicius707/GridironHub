@@ -6,7 +6,6 @@ import type { ITeamRepository, Conference, Division } from '@/domain/repositorie
 import type { Team } from '@/domain/entities'
 import { mapTeamFromDTO } from '@/domain/entities'
 import type { NflApiClient } from '@/infrastructure/api/nfl/client'
-import { TeamNotFoundError } from '@/domain/errors'
 import { HttpClientError } from '@/infrastructure/http/client'
 import { ApiErrorCode } from '@/shared/types'
 import { mapList } from '@/application/helpers'
