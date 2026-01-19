@@ -8,6 +8,8 @@ import { mapPlayerFromDTO, mapTeamFromDTO } from '@/domain/entities'
 import type { PaginatedResponse } from '@/shared/types'
 import type { NflApiClient, GetPlayersParams } from '@/infrastructure/api/nfl/client'
 import { mapPaginatedResponse } from '@/application/helpers'
+import { HttpClientError } from '@/infrastructure/http/client'
+import { ApiErrorCode } from '@/shared/types'
 
 /**
  * Implementação concreta do repositório de jogadores
@@ -49,9 +51,13 @@ export class NflPlayerRepository implements IPlayerRepository {
     try {
       const response = await this.apiClient.getPlayerById(id)
       return mapPlayerFromDTO(response.data, mapTeamFromDTO)
-    } catch {
-      // TODO: Melhorar tratamento de erro (verificar se é 404)
-      return null
+    } catch (error) {
+      // Se for erro 404, retorna null (recurso não encontrado)
+      if (error instanceof HttpClientError && error.code === ApiErrorCode.NOT_FOUND) {
+        return null
+      }
+      // Para outros erros, propaga o erro
+      throw error
     }
   }
 

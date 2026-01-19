@@ -6,6 +6,9 @@ import type { ITeamRepository, Conference, Division } from '@/domain/repositorie
 import type { Team } from '@/domain/entities'
 import { mapTeamFromDTO } from '@/domain/entities'
 import type { NflApiClient } from '@/infrastructure/api/nfl/client'
+import { TeamNotFoundError } from '@/domain/errors'
+import { HttpClientError } from '@/infrastructure/http/client'
+import { ApiErrorCode } from '@/shared/types'
 import { mapList } from '@/application/helpers'
 
 /**
@@ -30,9 +33,13 @@ export class NflTeamRepository implements ITeamRepository {
     try {
       const response = await this.apiClient.getTeamById(id)
       return mapTeamFromDTO(response.data)
-    } catch {
-      // TODO: Melhorar tratamento de erro (verificar se é 404)
-      return null
+    } catch (error) {
+      // Se for erro 404, retorna null (recurso não encontrado)
+      if (error instanceof HttpClientError && error.code === ApiErrorCode.NOT_FOUND) {
+        return null
+      }
+      // Para outros erros, propaga o erro
+      throw error
     }
   }
 
