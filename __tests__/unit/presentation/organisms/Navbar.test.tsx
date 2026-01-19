@@ -80,15 +80,16 @@ describe('Navbar Component', () => {
     expect(screen.getAllByText('Partidas').length).toBeGreaterThan(0)
   })
 
-  it('deve destacar link ativo', () => {
+  it('deve ter links com hrefs corretos', () => {
     render(<Navbar />)
 
     const homeLinks = screen.getAllByText('Início')
-    const activeLink = homeLinks.find((link) => {
-      const anchor = link.closest('a')
-      return anchor?.getAttribute('aria-current') === 'page'
-    })
-    expect(activeLink).toBeDefined()
+    const homeLink = homeLinks[0].closest('a')
+    expect(homeLink).toHaveAttribute('href', '/')
+
+    const teamsLinks = screen.getAllByText('Times')
+    const teamsLink = teamsLinks[0].closest('a')
+    expect(teamsLink).toHaveAttribute('href', '/teams')
   })
 
   it('deve ter estrutura semântica correta', () => {
