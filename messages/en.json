@@ -22,5 +22,23 @@
     "loading": "Loading...",
     "error": "Error",
     "notFound": "Not found"
+  },
+  "teams": {
+    "title": "NFL Teams",
+    "description": "Explore all 32 NFL teams",
+    "backToTeams": "Back to Teams",
+    "conference": "Conference",
+    "division": "Division",
+    "location": "Location",
+    "abbreviation": "Abbreviation",
+    "fullName": "Full Name",
+    "viewDetails": "View details",
+    "notFound": "Team not found",
+    "errorLoading": "Error loading teams",
+    "filterByConference": "Filter by conference",
+    "filterByDivision": "Filter by division",
+    "allConferences": "All conferences",
+    "allDivisions": "All divisions",
+    "noTeamsFound": "No teams found"
   }
 }

@@ -7,19 +7,22 @@ import {
   TeamNotFoundError,
   PlayerNotFoundError,
   GameNotFoundError,
+  NotFoundError,
   UnauthorizedError,
+  ValidationError,
   RateLimitError,
   ServerError,
   UnknownError,
-  type DomainError,
+  DomainError,
 } from '@/domain/errors'
+import type { DomainError as DomainErrorType } from '@/domain/errors'
 import { HttpClientError } from '@/infrastructure/http/client'
 import { ApiErrorCode } from '@/shared/types'
 
 /**
  * Mapeia um erro HTTP para um erro de domínio
  */
-export function mapHttpErrorToDomain(error: unknown): DomainError {
+export function mapHttpErrorToDomain(error: unknown): DomainErrorType {
   // Se já é um erro de domínio, retorna como está
   if (error instanceof DomainError) {
     return error
@@ -57,7 +60,7 @@ export function mapHttpErrorToDomain(error: unknown): DomainError {
 /**
  * Mapeia um erro HTTP 404 para um erro de domínio específico baseado no recurso
  */
-export function mapNotFoundError(resource: 'team' | 'player' | 'game', id: number): DomainError {
+export function mapNotFoundError(resource: 'team' | 'player' | 'game', id: number): DomainErrorType {
   switch (resource) {
     case 'team':
       return new TeamNotFoundError(id)
