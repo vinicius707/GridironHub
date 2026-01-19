@@ -3,8 +3,8 @@
  * Linha de exibição de um jogador
  */
 
-import Link from 'next/link'
 import type { Player } from '@/domain/entities'
+import { Link } from '@/i18n/routing'
 import { getPlayerFullName, getPlayerPositionDisplay } from '@/domain/entities/player'
 import { Badge } from '@/presentation/components/atoms'
 import { Text } from '@/presentation/components/atoms'
