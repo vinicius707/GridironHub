@@ -52,15 +52,24 @@ Presentation → Application → Domain ← Infrastructure
 
 ### 1. Domain (Domínio)
 
-Contém as entidades e regras de negócio puras.
+Contém as entidades, regras de negócio puras e interfaces de repositórios.
 
 ```
 src/domain/
-└── entities/
-    ├── team.ts      # Entidade Team
-    ├── player.ts    # Entidade Player
-    ├── game.ts      # Entidade Game
-    └── index.ts     # Exportações
+├── entities/
+│   ├── team.ts      # Entidade Team
+│   ├── player.ts    # Entidade Player
+│   ├── game.ts      # Entidade Game
+│   └── index.ts     # Exportações
+├── repositories/
+│   ├── team-repository.ts      # ITeamRepository
+│   ├── player-repository.ts    # IPlayerRepository
+│   ├── game-repository.ts      # IGameRepository
+│   └── index.ts                # Exportações
+├── errors/
+│   ├── domain-error.ts         # Hierarquia de erros
+│   └── index.ts
+└── ...
 ```
 
 #### Entidades
@@ -129,15 +138,25 @@ function mapTeamFromDTO(dto: TeamDTO): Team {
 
 ### 2. Application (Aplicação)
 
-Contém os use cases que orquestram a lógica de negócio.
+Contém os use cases, helpers, serviços e container de DI.
 
 ```
 src/application/
-└── use-cases/
-    ├── get-teams.ts     # Use cases de times
-    ├── get-players.ts   # Use cases de jogadores
-    ├── get-games.ts     # Use cases de partidas
-    └── index.ts         # Exportações
+├── use-cases/
+│   ├── get-teams.ts     # Use cases de times
+│   ├── get-players.ts   # Use cases de jogadores
+│   ├── get-games.ts     # Use cases de partidas
+│   └── index.ts         # Exportações
+├── dependencies/
+│   ├── container.ts    # Dependency Injection Container
+│   └── index.ts
+├── helpers/
+│   ├── mapper-helper.ts # Helpers de mapeamento (DRY)
+│   └── index.ts
+├── services/
+│   ├── error-service.ts # Serviço de tratamento de erros
+│   └── index.ts
+└── stores/              # Zustand stores
 ```
 
 #### Use Cases Disponíveis
@@ -166,17 +185,22 @@ src/application/
 
 ### 3. Infrastructure (Infraestrutura)
 
-Implementações de serviços externos.
+Implementações de serviços externos e repositórios concretos.
 
 ```
 src/infrastructure/
 ├── http/
 │   ├── client.ts    # HTTP Client genérico
 │   └── index.ts
-└── api/
-    └── nfl/
-        ├── client.ts # Cliente da NFL API
-        └── index.ts
+├── api/
+│   └── nfl/
+│       ├── client.ts # Cliente da NFL API
+│       └── index.ts
+└── repositories/
+    ├── nfl-team-repository.ts    # Implementação ITeamRepository
+    ├── nfl-player-repository.ts  # Implementação IPlayerRepository
+    ├── nfl-game-repository.ts    # Implementação IGameRepository
+    └── index.ts
 ```
 
 #### HTTP Client
@@ -232,12 +256,18 @@ Tipos e utilitários usados em múltiplas camadas.
 
 ```
 src/shared/
-└── types/
-    ├── api.ts       # Tipos de paginação, erros
+├── types/
+│   ├── api.ts       # Tipos de paginação, erros
+│   └── index.ts
+└── utils/
+    ├── result.ts         # Tipo Result<T, E> para tratamento funcional
+    ├── error-mapper.ts   # Mapeador de erros HTTP -> Domain
     └── index.ts
 ```
 
 ## Fluxo de Dados
+
+### Fluxo Atual (com Repositórios e DI)
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
@@ -249,6 +279,21 @@ src/shared/
 ┌──────────────────────────────────────────────────────────────┐
 │                        Use Case                               │
 │                      (getTeams())                             │
+│              getContainer().getTeamRepository()              │
+└────────────────────────────┬─────────────────────────────────┘
+                             │ usa interface
+                             ▼
+┌──────────────────────────────────────────────────────────────┐
+│                    Repositório (Interface)                    │
+│                    (ITeamRepository)                          │
+│                      repository.findAll()                     │
+└────────────────────────────┬─────────────────────────────────┘
+                             │ implementa
+                             ▼
+┌──────────────────────────────────────────────────────────────┐
+│              Repositório Concreto (Infrastructure)            │
+│                  (NflTeamRepository)                          │
+│              apiClient.getTeams() + mapList()                 │
 └────────────────────────────┬─────────────────────────────────┘
                              │ chama
                              ▼
@@ -271,8 +316,8 @@ src/shared/
                              │ resposta (DTO)
                              ▼
 ┌──────────────────────────────────────────────────────────────┐
-│                         Mapper                                │
-│                   (mapTeamFromDTO())                          │
+│                    Helper de Mapeamento                        │
+│              (mapList() ou mapPaginatedResponse())             │
 └────────────────────────────┬─────────────────────────────────┘
                              │ entidade
                              ▼
@@ -281,6 +326,13 @@ src/shared/
 │                     (TeamCard, TeamList)                      │
 └──────────────────────────────────────────────────────────────┘
 ```
+
+**Principais diferenças:**
+
+1. **Use Case** obtém repositório via DI (`getContainer().getTeamRepository()`)
+2. **Interface do Repositório** (domain) define o contrato
+3. **Repositório Concreto** (infrastructure) implementa usando API client
+4. **Helpers** centralizam lógica de mapeamento (DRY)
 
 ## Atomic Design
 
