@@ -29,7 +29,7 @@ export class NflTeamRepository implements ITeamRepository {
     try {
       const response = await this.apiClient.getTeamById(id)
       return mapTeamFromDTO(response.data)
-    } catch (_error) {
+    } catch {
       // TODO: Melhorar tratamento de erro (verificar se é 404)
       return null
     }

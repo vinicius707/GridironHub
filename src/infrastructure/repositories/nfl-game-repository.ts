@@ -53,7 +53,7 @@ export class NflGameRepository implements IGameRepository {
     try {
       const response = await this.apiClient.getGameById(id)
       return mapGameFromDTO(response.data, mapTeamFromDTO)
-    } catch (_error) {
+    } catch {
       // TODO: Melhorar tratamento de erro (verificar se é 404)
       return null
     }

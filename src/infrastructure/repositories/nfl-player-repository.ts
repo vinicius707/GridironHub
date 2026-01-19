@@ -52,7 +52,7 @@ export class NflPlayerRepository implements IPlayerRepository {
     try {
       const response = await this.apiClient.getPlayerById(id)
       return mapPlayerFromDTO(response.data, mapTeamFromDTO)
-    } catch (_error) {
+    } catch {
       // TODO: Melhorar tratamento de erro (verificar se é 404)
       return null
     }
