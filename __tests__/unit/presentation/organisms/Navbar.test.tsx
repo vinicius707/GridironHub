@@ -73,17 +73,22 @@ describe('Navbar Component', () => {
   it('deve renderizar links de navegação no desktop', () => {
     render(<Navbar />)
 
-    expect(screen.getByText('Início')).toBeInTheDocument()
-    expect(screen.getByText('Times')).toBeInTheDocument()
-    expect(screen.getByText('Jogadores')).toBeInTheDocument()
-    expect(screen.getByText('Partidas')).toBeInTheDocument()
+    const allInicio = screen.getAllByText('Início')
+    expect(allInicio.length).toBeGreaterThan(0)
+    expect(screen.getAllByText('Times').length).toBeGreaterThan(0)
+    expect(screen.getAllByText('Jogadores').length).toBeGreaterThan(0)
+    expect(screen.getAllByText('Partidas').length).toBeGreaterThan(0)
   })
 
   it('deve destacar link ativo', () => {
     render(<Navbar />)
 
-    const homeLink = screen.getByText('Início').closest('a')
-    expect(homeLink).toHaveAttribute('aria-current', 'page')
+    const homeLinks = screen.getAllByText('Início')
+    const activeLink = homeLinks.find((link) => {
+      const anchor = link.closest('a')
+      return anchor?.getAttribute('aria-current') === 'page'
+    })
+    expect(activeLink).toBeDefined()
   })
 
   it('deve ter estrutura semântica correta', () => {
