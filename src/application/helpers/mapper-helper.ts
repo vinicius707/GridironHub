@@ -3,7 +3,7 @@
  * Extrai lógica comum de mapeamento para evitar duplicação
  */
 
-import type { PaginatedResponse, PaginatedResponseDTO, PaginationMetaDTO } from '@/shared/types'
+import type { PaginatedResponse, PaginatedResponseDTO } from '@/shared/types'
 import { mapPaginationMeta } from '@/shared/types'
 
 /**
