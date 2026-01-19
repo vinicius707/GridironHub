@@ -1,0 +1,22 @@
+{
+  "nav": {
+    "home": "Home",
+    "teams": "Teams",
+    "players": "Players",
+    "games": "Games"
+  },
+  "language": {
+    "pt": "Português",
+    "en": "English",
+    "change": "Change language"
+  },
+  "menu": {
+    "open": "Open menu",
+    "close": "Close menu"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "notFound": "Not found"
+  }
+}
