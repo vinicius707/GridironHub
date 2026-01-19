@@ -1,2 +1,4 @@
 // Componentes moleculares: TeamCard, PlayerRow, GameScore
-export {}
+export * from './TeamCard'
+export * from './PlayerRow'
+export * from './GameScore'
