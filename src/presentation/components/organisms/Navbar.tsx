@@ -16,11 +16,13 @@ export function Navbar({ className = '', ...props }: NavbarProps) {
   const pathname = usePathname()
 
   // Links de navegação com tradução baseada no locale
+  // Nota: As rotas reais serão configuradas quando criarmos as páginas
+  // Por enquanto, usamos rotas genéricas que funcionarão para ambos os idiomas
   const navLinks = [
     { href: '/', label: t('home') },
-    { href: locale === 'pt' ? '/times' : '/teams', label: t('teams') },
-    { href: locale === 'pt' ? '/jogadores' : '/players', label: t('players') },
-    { href: locale === 'pt' ? '/partidas' : '/games', label: t('games') },
+    { href: '/teams', label: t('teams') },
+    { href: '/players', label: t('players') },
+    { href: '/games', label: t('games') },
   ]
 
   const isActive = (href: string) => {
