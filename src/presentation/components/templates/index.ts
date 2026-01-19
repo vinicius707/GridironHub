@@ -1,2 +1,2 @@
-// Templates de página: PageLayout, ListLayout
-export {}
+// Templates de página: PageLayout
+export * from './PageLayout'

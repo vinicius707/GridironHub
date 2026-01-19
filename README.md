@@ -54,6 +54,7 @@ Para mais detalhes:
 
 - [Arquitetura](./docs/ARCHITECTURE.md) - Clean Architecture e camadas
 - [Sistema de Design](./docs/COMPONENTS.md) - Atomic Design e componentes
+- [Navegação e i18n](./docs/NAVIGATION.md) - Sistema de navegação e internacionalização
 - [API](./docs/API.md) - Integração com balldontlie API
 
 ## 🚀 Começando

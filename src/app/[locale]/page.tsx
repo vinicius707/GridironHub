@@ -2,17 +2,17 @@
  * Página Home - GridironHub
  */
 
-import Link from 'next/link'
+'use client'
+
+import { Link } from '@/i18n/routing'
+import { useTranslations } from 'next-intl'
 import { Text } from '@/presentation/components/atoms'
 
 export default function Home() {
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      {/* Skip Link */}
-      <a href="#main-content" className="skip-link">
-        Pular para o conteúdo principal
-      </a>
+  const t = useTranslations('nav')
 
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-black">
       {/* Hero Section */}
       <header className="container mx-auto px-4 py-8 sm:py-16 sm:px-6 lg:px-8">
         <div className="text-center mb-8 sm:mb-16">
@@ -27,7 +27,7 @@ export default function Home() {
       </header>
 
       {/* Main Content */}
-      <main id="main-content" className="container mx-auto px-4 pb-16 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-4 pb-16 sm:px-6 lg:px-8">
         {/* Cards de Navegação */}
         <section aria-labelledby="navigation-cards-title">
           <h2 id="navigation-cards-title" className="sr-only">
@@ -37,9 +37,9 @@ export default function Home() {
             {/* Times */}
             <article>
               <Link
-                href="/times"
-                className="block bg-white rounded-lg shadow-md hover:shadow-xl focus:shadow-xl transition-shadow p-6 sm:p-8 h-full border-2 border-transparent hover:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                aria-label="Navegar para página de Times"
+                href="/teams"
+                className="block bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-xl focus:shadow-xl transition-shadow p-6 sm:p-8 h-full border-2 border-transparent hover:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                aria-label={`Navegar para página de ${t('teams')}`}
               >
                 <div className="text-center">
                   <div className="text-4xl sm:text-5xl mb-4" aria-hidden="true">
@@ -62,9 +62,9 @@ export default function Home() {
             {/* Jogadores */}
             <article>
               <Link
-                href="/jogadores"
-                className="block bg-white rounded-lg shadow-md hover:shadow-xl focus:shadow-xl transition-shadow p-6 sm:p-8 h-full border-2 border-transparent hover:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                aria-label="Navegar para página de Jogadores"
+                href="/players"
+                className="block bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-xl focus:shadow-xl transition-shadow p-6 sm:p-8 h-full border-2 border-transparent hover:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                aria-label={`Navegar para página de ${t('players')}`}
               >
                 <div className="text-center">
                   <div className="text-4xl sm:text-5xl mb-4" aria-hidden="true">
@@ -86,9 +86,9 @@ export default function Home() {
             {/* Partidas */}
             <article>
               <Link
-                href="/partidas"
-                className="block bg-white rounded-lg shadow-md hover:shadow-xl focus:shadow-xl transition-shadow p-6 sm:p-8 h-full border-2 border-transparent hover:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                aria-label="Navegar para página de Partidas"
+                href="/games"
+                className="block bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-xl focus:shadow-xl transition-shadow p-6 sm:p-8 h-full border-2 border-transparent hover:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                aria-label={`Navegar para página de ${t('games')}`}
               >
                 <div className="text-center">
                   <div className="text-4xl sm:text-5xl mb-4" aria-hidden="true">
@@ -111,7 +111,7 @@ export default function Home() {
 
         {/* Seção de Informações */}
         <section
-          className="bg-white rounded-lg shadow-md p-6 sm:p-8 max-w-4xl mx-auto"
+          className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 sm:p-8 max-w-4xl mx-auto"
           aria-labelledby="about-title"
         >
           <Text
@@ -147,7 +147,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-      </main>
+      </div>
     </div>
   )
 }

@@ -1,0 +1,26 @@
+{
+  "nav": {
+    "home": "Início",
+    "teams": "Times",
+    "players": "Jogadores",
+    "games": "Partidas",
+    "navigation": "Navegação principal"
+  },
+  "language": {
+    "pt": "Português",
+    "en": "English",
+    "change": "Trocar idioma",
+    "current": "Idioma atual",
+    "select": "Selecione um idioma"
+  },
+  "menu": {
+    "open": "Abrir menu",
+    "close": "Fechar menu",
+    "mobile": "Menu mobile"
+  },
+  "common": {
+    "loading": "Carregando...",
+    "error": "Erro",
+    "notFound": "Não encontrado"
+  }
+}

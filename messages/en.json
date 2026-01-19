@@ -1,0 +1,26 @@
+{
+  "nav": {
+    "home": "Home",
+    "teams": "Teams",
+    "players": "Players",
+    "games": "Games",
+    "navigation": "Main navigation"
+  },
+  "language": {
+    "pt": "Português",
+    "en": "English",
+    "change": "Change language",
+    "current": "Current language",
+    "select": "Select a language"
+  },
+  "menu": {
+    "open": "Open menu",
+    "close": "Close menu",
+    "mobile": "Mobile menu"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "notFound": "Not found"
+  }
+}
