@@ -36,6 +36,8 @@
     "college": "College",
     "experience": "Experience",
     "age": "Age",
+    "year": "year",
+    "years": "years",
     "viewDetails": "View details",
     "notFound": "Player not found",
     "errorLoading": "Error loading players",

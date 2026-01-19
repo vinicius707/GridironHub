@@ -36,6 +36,8 @@
     "college": "Universidade",
     "experience": "Experiência",
     "age": "Idade",
+    "year": "ano",
+    "years": "anos",
     "viewDetails": "Ver detalhes",
     "notFound": "Jogador não encontrado",
     "errorLoading": "Erro ao carregar jogadores",
