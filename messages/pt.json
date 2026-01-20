@@ -22,6 +22,30 @@
     "error": "Erro",
     "notFound": "Não encontrado"
   },
+  "home": {
+    "title": "GridironHub",
+    "subtitle": "Explore times e jogadores da NFL. Dados atualizados da temporada em tempo real.",
+    "navigationCards": "Navegação Principal",
+    "teamsCard": {
+      "title": "Times",
+      "description": "Explore os 32 times da NFL. Informações sobre conferências, divisões e localizações.",
+      "cta": "Ver Times"
+    },
+    "playersCard": {
+      "title": "Jogadores",
+      "description": "Busque e explore jogadores da NFL. Estatísticas, posições e times atuais.",
+      "cta": "Ver Jogadores"
+    },
+    "about": {
+      "title": "Sobre o GridironHub",
+      "description1": "O GridironHub é uma plataforma dedicada a fornecer informações atualizadas sobre a NFL. Explore dados de times e jogadores de forma simples e intuitiva.",
+      "description2": "Todos os dados são obtidos da balldontlie API, garantindo informações confiáveis e atualizadas.",
+      "description2Part1": "Todos os dados são obtidos da",
+      "description2Part2": ", garantindo informações confiáveis e atualizadas.",
+      "apiLink": "balldontlie API",
+      "apiLinkLabel": "Abrir balldontlie API em nova aba"
+    }
+  },
   "teams": {
     "title": "Times da NFL",
     "description": "Explore todos os 32 times da NFL",

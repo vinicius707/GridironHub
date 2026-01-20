@@ -22,6 +22,30 @@
     "error": "Error",
     "notFound": "Not found"
   },
+  "home": {
+    "title": "GridironHub",
+    "subtitle": "Explore NFL teams and players. Real-time updated season data.",
+    "navigationCards": "Main Navigation",
+    "teamsCard": {
+      "title": "Teams",
+      "description": "Explore all 32 NFL teams. Information about conferences, divisions and locations.",
+      "cta": "View Teams"
+    },
+    "playersCard": {
+      "title": "Players",
+      "description": "Search and explore NFL players. Statistics, positions and current teams.",
+      "cta": "View Players"
+    },
+    "about": {
+      "title": "About GridironHub",
+      "description1": "GridironHub is a platform dedicated to providing up-to-date information about the NFL. Explore team and player data in a simple and intuitive way.",
+      "description2": "All data is obtained from the {apiLink}, ensuring reliable and up-to-date information.",
+      "description2Part1": "All data is obtained from the",
+      "description2Part2": ", ensuring reliable and up-to-date information.",
+      "apiLink": "balldontlie API",
+      "apiLinkLabel": "Open balldontlie API in new tab"
+    }
+  },
   "teams": {
     "title": "NFL Teams",
     "description": "Explore all 32 NFL teams",
