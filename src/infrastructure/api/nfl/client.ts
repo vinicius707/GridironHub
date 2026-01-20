@@ -5,7 +5,7 @@
 
 import type { HttpClient } from '@/infrastructure/http/client'
 import { createHttpClient } from '@/infrastructure/http/client'
-import type { TeamDTO, PlayerDTO, GameDTO } from '@/domain/entities'
+import type { TeamDTO, PlayerDTO } from '@/domain/entities'
 import type { PaginatedResponseDTO, PaginationParams } from '@/shared/types'
 
 const NFL_API_BASE_URL = 'https://api.balldontlie.io/nfl/v1'
@@ -19,14 +19,6 @@ export interface GetPlayersParams extends PaginationParams {
   search?: string
   firstName?: string
   lastName?: string
-}
-
-export interface GetGamesParams extends PaginationParams {
-  dates?: string[]
-  seasons?: number[]
-  teamIds?: number[]
-  postseason?: boolean
-  weeks?: number[]
 }
 
 /**
@@ -53,18 +45,6 @@ type PlayersResponseDTO = PaginatedResponseDTO<PlayerDTO>
  */
 interface PlayerResponseDTO {
   data: PlayerDTO
-}
-
-/**
- * Resposta da API para lista de jogos
- */
-type GamesResponseDTO = PaginatedResponseDTO<GameDTO>
-
-/**
- * Resposta da API para um jogo específico
- */
-interface GameResponseDTO {
-  data: GameDTO
 }
 
 export class NflApiClient {
@@ -128,54 +108,6 @@ export class NflApiClient {
     return this.http.get<PlayerResponseDTO>(`/players/${id}`)
   }
 
-  // ============================================
-  // GAMES
-  // ============================================
-
-  /**
-   * Busca jogos com paginação e filtros
-   */
-  async getGames(params?: GetGamesParams): Promise<GamesResponseDTO> {
-    const queryParams: Record<string, string | number | boolean | undefined> = {
-      cursor: params?.cursor,
-      per_page: params?.perPage,
-      postseason: params?.postseason,
-    }
-
-    // Adiciona arrays como parâmetros separados
-    if (params?.dates?.length) {
-      params.dates.forEach((date, index) => {
-        queryParams[`dates[${index}]`] = date
-      })
-    }
-
-    if (params?.seasons?.length) {
-      params.seasons.forEach((season, index) => {
-        queryParams[`seasons[${index}]`] = season
-      })
-    }
-
-    if (params?.teamIds?.length) {
-      params.teamIds.forEach((id, index) => {
-        queryParams[`team_ids[${index}]`] = id
-      })
-    }
-
-    if (params?.weeks?.length) {
-      params.weeks.forEach((week, index) => {
-        queryParams[`weeks[${index}]`] = week
-      })
-    }
-
-    return this.http.get<GamesResponseDTO>('/games', { params: queryParams })
-  }
-
-  /**
-   * Busca um jogo específico pelo ID
-   */
-  async getGameById(id: number): Promise<GameResponseDTO> {
-    return this.http.get<GameResponseDTO>(`/games/${id}`)
-  }
 }
 
 /**

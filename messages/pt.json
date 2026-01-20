@@ -3,7 +3,6 @@
     "home": "Início",
     "teams": "Times",
     "players": "Jogadores",
-    "games": "Partidas",
     "navigation": "Navegação principal"
   },
   "language": {
@@ -22,6 +21,30 @@
     "loading": "Carregando...",
     "error": "Erro",
     "notFound": "Não encontrado"
+  },
+  "home": {
+    "title": "GridironHub",
+    "subtitle": "Explore times e jogadores da NFL. Dados atualizados da temporada em tempo real.",
+    "navigationCards": "Navegação Principal",
+    "teamsCard": {
+      "title": "Times",
+      "description": "Explore os 32 times da NFL. Informações sobre conferências, divisões e localizações.",
+      "cta": "Ver Times"
+    },
+    "playersCard": {
+      "title": "Jogadores",
+      "description": "Busque e explore jogadores da NFL. Estatísticas, posições e times atuais.",
+      "cta": "Ver Jogadores"
+    },
+    "about": {
+      "title": "Sobre o GridironHub",
+      "description1": "O GridironHub é uma plataforma dedicada a fornecer informações atualizadas sobre a NFL. Explore dados de times e jogadores de forma simples e intuitiva.",
+      "description2": "Todos os dados são obtidos da balldontlie API, garantindo informações confiáveis e atualizadas.",
+      "description2Part1": "Todos os dados são obtidos da",
+      "description2Part2": ", garantindo informações confiáveis e atualizadas.",
+      "apiLink": "balldontlie API",
+      "apiLinkLabel": "Abrir balldontlie API em nova aba"
+    }
   },
   "teams": {
     "title": "Times da NFL",
@@ -70,39 +93,5 @@
     "nextPage": "Página próxima",
     "page": "Página",
     "of": "de"
-  },
-  "games": {
-    "title": "Partidas da NFL",
-    "description": "Explore partidas da NFL com filtros por temporada, semana e time",
-    "backToGames": "Voltar para Partidas",
-    "visitorTeam": "Time Visitante",
-    "homeTeam": "Time da Casa",
-    "visitorScore": "Placar Visitante",
-    "homeScore": "Placar da Casa",
-    "winner": "Vencedor",
-    "status": "Status",
-    "season": "Temporada",
-    "week": "Semana",
-    "date": "Data",
-    "type": "Tipo",
-    "scheduledTime": "Horário Agendado",
-    "regularSeason": "Temporada Regular",
-    "postseason": "Pós-Temporada",
-    "viewDetails": "Ver detalhes",
-    "notFound": "Partida não encontrada",
-    "errorLoading": "Erro ao carregar partidas",
-    "filterBySeason": "Filtrar por temporada",
-    "filterByWeek": "Filtrar por semana",
-    "filterByTeam": "Filtrar por time",
-    "filterByType": "Filtrar por tipo",
-    "allSeasons": "Todas as temporadas",
-    "allWeeks": "Todas as semanas",
-    "allTeams": "Todos os times",
-    "allTypes": "Todos os tipos",
-    "noGamesFound": "Nenhuma partida encontrada",
-    "previousPage": "Página anterior",
-    "nextPage": "Página próxima",
-    "page": "Página",
-    "search": "Buscar"
   }
 }

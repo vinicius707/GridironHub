@@ -5,4 +5,3 @@
 
 export * from './team-repository'
 export * from './player-repository'
-export * from './game-repository'

@@ -3,7 +3,6 @@
     "home": "Home",
     "teams": "Teams",
     "players": "Players",
-    "games": "Games",
     "navigation": "Main navigation"
   },
   "language": {
@@ -22,6 +21,30 @@
     "loading": "Loading...",
     "error": "Error",
     "notFound": "Not found"
+  },
+  "home": {
+    "title": "GridironHub",
+    "subtitle": "Explore NFL teams and players. Real-time updated season data.",
+    "navigationCards": "Main Navigation",
+    "teamsCard": {
+      "title": "Teams",
+      "description": "Explore all 32 NFL teams. Information about conferences, divisions and locations.",
+      "cta": "View Teams"
+    },
+    "playersCard": {
+      "title": "Players",
+      "description": "Search and explore NFL players. Statistics, positions and current teams.",
+      "cta": "View Players"
+    },
+    "about": {
+      "title": "About GridironHub",
+      "description1": "GridironHub is a platform dedicated to providing up-to-date information about the NFL. Explore team and player data in a simple and intuitive way.",
+      "description2": "All data is obtained from the {apiLink}, ensuring reliable and up-to-date information.",
+      "description2Part1": "All data is obtained from the",
+      "description2Part2": ", ensuring reliable and up-to-date information.",
+      "apiLink": "balldontlie API",
+      "apiLinkLabel": "Open balldontlie API in new tab"
+    }
   },
   "teams": {
     "title": "NFL Teams",
@@ -70,39 +93,5 @@
     "nextPage": "Next page",
     "page": "Page",
     "of": "of"
-  },
-  "games": {
-    "title": "NFL Games",
-    "description": "Explore NFL games with filters by season, week and team",
-    "backToGames": "Back to Games",
-    "visitorTeam": "Visitor Team",
-    "homeTeam": "Home Team",
-    "visitorScore": "Visitor Score",
-    "homeScore": "Home Score",
-    "winner": "Winner",
-    "status": "Status",
-    "season": "Season",
-    "week": "Week",
-    "date": "Date",
-    "type": "Type",
-    "scheduledTime": "Scheduled Time",
-    "regularSeason": "Regular Season",
-    "postseason": "Postseason",
-    "viewDetails": "View details",
-    "notFound": "Game not found",
-    "errorLoading": "Error loading games",
-    "filterBySeason": "Filter by season",
-    "filterByWeek": "Filter by week",
-    "filterByTeam": "Filter by team",
-    "filterByType": "Filter by type",
-    "allSeasons": "All seasons",
-    "allWeeks": "All weeks",
-    "allTeams": "All teams",
-    "allTypes": "All types",
-    "noGamesFound": "No games found",
-    "previousPage": "Previous page",
-    "nextPage": "Next page",
-    "page": "Page",
-    "search": "Search"
   }
 }

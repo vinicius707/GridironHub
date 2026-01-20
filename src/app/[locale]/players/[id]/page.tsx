@@ -115,7 +115,7 @@ export default async function PlayerDetailPage({ params }: PlayerDetailPageProps
       {/* Informações do Jogador */}
       <section aria-labelledby="player-info-title">
         <h2 id="player-info-title" className="sr-only">
-          Informações do jogador
+          {t('fullName')} - {t('position')}
         </h2>
         <div className="max-w-2xl mb-8">
           <PlayerRow player={player} />
@@ -125,7 +125,7 @@ export default async function PlayerDetailPage({ params }: PlayerDetailPageProps
       {/* Informações Detalhadas */}
       <section className="mt-8 sm:mt-12" aria-labelledby="player-details-title">
         <h2 id="player-details-title" className="sr-only">
-          Detalhes do jogador
+          {t('title')} - {t('fullName')}
         </h2>
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 sm:p-8 max-w-2xl">
           <dl className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">

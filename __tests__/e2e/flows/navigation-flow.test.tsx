@@ -138,7 +138,7 @@ describe('E2E - Fluxo de Navegação Cruzada', () => {
     render(playerPage)
 
     await waitFor(() => {
-      expect(screen.getByText('backToPlayers')).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /backToPlayers/i })).toBeInTheDocument()
     })
 
     // Verificar botão de voltar

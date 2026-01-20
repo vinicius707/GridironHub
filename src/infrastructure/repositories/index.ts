@@ -4,4 +4,3 @@
 
 export * from './nfl-team-repository'
 export * from './nfl-player-repository'
-export * from './nfl-game-repository'

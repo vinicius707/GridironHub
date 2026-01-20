@@ -42,17 +42,6 @@ export class PlayerNotFoundError extends DomainError {
 }
 
 /**
- * Erro quando uma partida não é encontrada
- */
-export class GameNotFoundError extends DomainError {
-  readonly code = 'GAME_NOT_FOUND'
-
-  constructor(public readonly gameId: number) {
-    super(`Partida com ID ${gameId} não encontrada`)
-  }
-}
-
-/**
  * Erro genérico quando algo não é encontrado
  */
 export class NotFoundError extends DomainError {

@@ -146,7 +146,6 @@ src/application/
 ├── use-cases/
 │   ├── get-teams.ts     # Use cases de times
 │   ├── get-players.ts   # Use cases de jogadores
-│   ├── get-games.ts     # Use cases de partidas
 │   └── index.ts         # Exportações
 ├── dependencies/
 │   ├── container.ts    # Dependency Injection Container
@@ -175,14 +174,6 @@ src/application/
 - `getPlayerById(id)` - Busca jogador por ID
 - `getPlayersByTeam(teamId)` - Filtra por time
 - `searchPlayers(search)` - Busca por nome
-
-**Games:**
-
-- `getGames(params)` - Lista partidas (paginado)
-- `getGameById(id)` - Busca partida por ID
-- `getGamesBySeason(season)` - Filtra por temporada
-- `getGamesByWeek(season, week)` - Filtra por semana
-- `getPlayoffGames(season)` - Apenas playoffs
 
 ### 3. Infrastructure (Infraestrutura)
 

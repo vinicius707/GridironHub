@@ -10,7 +10,6 @@ Este documento descreve as páginas implementadas no GridironHub, seus fluxos pr
   - [Home](#home)
   - [Times](#times)
   - [Jogadores](#jogadores)
-  - [Partidas](#partidas)
 - [Fluxos Principais](#fluxos-principais)
 - [Navegação e Links](#navegação-e-links)
 
@@ -33,16 +32,14 @@ O GridironHub é uma aplicação Next.js 16 com App Router que exibe informaçõ
 ├── / (Home)
 ├── /teams (Lista de Times)
 │   └── /[id] (Detalhes do Time)
-├── /players (Lista de Jogadores)
-│   └── /[id] (Detalhes do Jogador)
-└── /games (Lista de Partidas)
-    └── /[id] (Detalhes da Partida)
+└── /players (Lista de Jogadores)
+    └── /[id] (Detalhes do Jogador)
 ```
 
 ### Parâmetros de URL
 
 - `[locale]`: Idioma da aplicação (`pt` ou `en`)
-- `[id]`: ID numérico do recurso (time, jogador ou partida)
+- `[id]`: ID numérico do recurso (time ou jogador)
 
 ### Query Parameters
 
@@ -52,14 +49,6 @@ O GridironHub é uma aplicação Next.js 16 com App Router que exibe informaçõ
 - `search`: Busca por nome do jogador
 - `teamId`: Filtrar por ID do time
 - `position`: Filtrar por posição (ex: "QB", "WR")
-
-#### Página de Partidas (`/games`)
-
-- `page`: Número da página (padrão: 1)
-- `season`: Filtrar por temporada (ano)
-- `week`: Filtrar por semana (1-18)
-- `teamId`: Filtrar por ID do time
-- `postseason`: Filtrar por tipo (`true` para playoffs, `false` para temporada regular)
 
 ## Páginas Implementadas
 
@@ -74,7 +63,7 @@ O GridironHub é uma aplicação Next.js 16 com App Router que exibe informaçõ
 **Funcionalidades:**
 
 - Apresentação da aplicação
-- Links rápidos para Times, Jogadores e Partidas
+- Links rápidos para Times e Jogadores
 - Informações sobre a NFL e a API utilizada
 
 ### Times
@@ -208,91 +197,6 @@ O GridironHub é uma aplicação Next.js 16 com App Router que exibe informaçõ
 - Redireciona para 404 se o ID for inválido
 - Redireciona para 404 se o jogador não for encontrado
 
-### Partidas
-
-#### Lista de Partidas
-
-**Rota:** `/games` ou `/[locale]/games`
-
-**Arquivo:** `src/app/[locale]/games/page.tsx`
-
-**Descrição:** Lista de partidas da NFL com filtros avançados e paginação.
-
-**Funcionalidades:**
-
-- **Filtro por temporada**: Select com últimas 5 temporadas
-- **Filtro por semana**: Select com semanas 1-18
-- **Filtro por time**: Select com todos os times
-- **Filtro por tipo**: Regular Season ou Postseason (Playoffs)
-- **Paginação**: Navegação entre páginas (25 partidas por página)
-- **Exibição de placares**: Cards com informações da partida
-- **Status**: Badge indicando status (Final, In Progress, Scheduled)
-
-**Parâmetros de Busca:**
-
-- `page`: Número da página
-- `season`: Temporada (ano, ex: 2024)
-- `week`: Semana (1-18)
-- `teamId`: ID do time (visitante ou casa)
-- `postseason`: Tipo de jogo (`true` para playoffs, `false` para regular)
-
-**Componentes Utilizados:**
-
-- `GameScore` - Card de exibição da partida
-- `Button` - Botões de paginação e busca
-- `Text` - Componentes de texto
-- `Link` - Links para detalhes da partida
-
-**Use Cases:**
-
-- `getGames(params)` - Busca partidas com filtros e paginação
-- `getTeams()` - Busca times para o filtro
-
-#### Detalhes da Partida
-
-**Rota:** `/games/[id]` ou `/[locale]/games/[id]`
-
-**Arquivo:** `src/app/[locale]/games/[id]/page.tsx`
-
-**Descrição:** Exibe informações detalhadas de uma partida específica.
-
-**Funcionalidades:**
-
-- Times participantes (visitante e casa)
-- Placar final (se o jogo terminou)
-- Status do jogo (Final, Em Andamento, Agendado)
-- Informações da temporada (ano e semana)
-- Data e horário (se agendado)
-- Tipo de jogo (Regular Season ou Postseason)
-- Time vencedor (se finalizado)
-- Links para páginas dos times
-- Botão "Voltar" para retornar à lista
-
-**Componentes Utilizados:**
-
-- `GameScore` - Card visual da partida
-- `Button` - Botão de navegação
-- `Badge` - Badges de status e tipo
-- `Text` - Componente de texto tipado
-- `Link` - Links para páginas dos times
-
-**Use Cases:**
-
-- `getGameById(id)` - Busca partida por ID
-
-**Tratamento de Erros:**
-
-- Redireciona para 404 se o ID for inválido
-- Redireciona para 404 se a partida não for encontrada
-
-**Helpers Utilizados:**
-
-- `isGameFinished()` - Verifica se o jogo terminou
-- `isGameInProgress()` - Verifica se está em andamento
-- `isGameScheduled()` - Verifica se está agendado
-- `getGameWinner()` - Retorna o time vencedor
-- `getGameDateDisplay()` - Formata a data do jogo
-
 ## Fluxos Principais
 
 ### Fluxo 1: Explorar Times
@@ -324,34 +228,16 @@ Home → /players → Aplicar Filtros → Ver Resultados → Selecionar Jogador 
 5. Visualiza informações completas do jogador
 6. Pode seguir link para ver detalhes do time do jogador
 
-### Fluxo 3: Explorar Partidas
-
-```
-Home → /games → Aplicar Filtros → Ver Resultados → Selecionar Partida → /games/[id]
-                                                                           ↓
-                                                                      Links para Times
-```
-
-1. Usuário acessa a lista de partidas
-2. Aplica filtros (temporada, semana, time, tipo)
-3. Navega entre páginas de resultados
-4. Clica em uma partida para ver detalhes
-5. Visualiza informações completas da partida
-6. Pode seguir links para ver detalhes dos times participantes
-
-### Fluxo 4: Navegação Cruzada
+### Fluxo 3: Navegação Cruzada
 
 ```
 Qualquer Página → Link para Time → /teams/[id] → Ver Jogadores do Time → /players?teamId=X
-                                        ↓
-                              Ver Partidas do Time → /games?teamId=X
 ```
 
 1. Usuário encontra referência a um time em qualquer página
 2. Clica no link do time
 3. Visualiza detalhes do time
 4. Pode explorar jogadores do time filtrando por `teamId`
-5. Pode explorar partidas do time filtrando por `teamId`
 
 ## Navegação e Links
 
@@ -372,7 +258,6 @@ Todas as páginas de detalhes incluem um botão "Voltar" que retorna à lista co
 
 - `/teams/[id]` → Botão "Voltar para Times" → `/teams`
 - `/players/[id]` → Botão "Voltar para Jogadores" → `/players`
-- `/games/[id]` → Botão "Voltar para Partidas" → `/games`
 
 ### Preservação de Estado
 
@@ -451,26 +336,20 @@ export async function generateMetadata({ params }): Promise<Metadata> {
 - **Páginas de Lista**: Usam ISR para atualização periódica
   - Times: `revalidate: 3600` (1 hora)
   - Jogadores: `revalidate: 1800` (30 minutos)
-  - Partidas: `revalidate: 900` (15 minutos)
 
 ### ISR (Incremental Static Regeneration)
 
 - **Páginas de Detalhes de Jogadores**: ISR on-demand
   - `revalidate: 1800` (30 minutos)
   - Páginas são geradas sob demanda conforme necessário
-  
-- **Páginas de Detalhes de Partidas**: ISR on-demand
-  - `revalidate: 900` (15 minutos)
-  - Revalidação mais frequente para dados que mudam rapidamente
 
 ### Estratégias de Cache
 
 1. **Times (32 páginas)**: Pré-renderizadas no build - SSG completo
-2. **Jogadores e Partidas**: ISR on-demand para evitar sobrecarga no build
+2. **Jogadores**: ISR on-demand para evitar sobrecarga no build
 3. **Revalidação baseada em frequência de mudança**:
    - Times: 1 hora (mudam raramente)
    - Jogadores: 30 minutos (trades, lesões)
-   - Partidas: 15 minutos (placares, status)
 
 ### Paginação
 

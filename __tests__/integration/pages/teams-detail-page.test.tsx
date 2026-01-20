@@ -109,7 +109,7 @@ describe('TeamDetailPage - Integração', () => {
     render(page)
 
     await waitFor(() => {
-      expect(screen.getByText('Voltar para Times')).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /backToTeams/i })).toBeInTheDocument()
     })
   })
 

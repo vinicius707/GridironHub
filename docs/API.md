@@ -14,7 +14,7 @@ Este documento descreve a integração com a API balldontlie NFL.
 
 ## Visão Geral
 
-O GridironHub utiliza a [balldontlie NFL API](https://nfl.balldontlie.io/) para obter dados sobre times, jogadores e partidas da NFL.
+O GridironHub utiliza a [balldontlie NFL API](https://nfl.balldontlie.io/) para obter dados sobre times e jogadores da NFL.
 
 **Base URL:** `https://api.balldontlie.io/nfl/v1`
 
@@ -33,7 +33,7 @@ Authorization: YOUR_API_KEY
 A API balldontlie oferece um **plano gratuito** que permite:
 
 - **5 requisições por minuto**
-- Acesso aos endpoints: Teams, Players, Games
+- Acesso aos endpoints: Teams, Players
 - Sem custo
 
 **Passos para obter sua API key:**
@@ -63,7 +63,7 @@ BALLDONTLIE_API_KEY=sua_chave_aqui
 ### Limites do Plano Gratuito
 
 - **Rate Limit:** 5 requisições por minuto
-- **Endpoints disponíveis:** Teams, Players, Games
+- **Endpoints disponíveis:** Teams, Players
 - **Upgrade disponível:** Para mais requisições, consulte [balldontlie.io/pricing](https://www.balldontlie.io/pricing)
 
 > **Nota:** O GridironHub implementa cache agressivo para otimizar o uso da API e respeitar os limites do plano gratuito.
@@ -173,52 +173,6 @@ GET /nfl/v1/players
 GET /nfl/v1/players/:id
 ```
 
-### Games (Partidas)
-
-#### Listar Partidas
-
-```http
-GET /nfl/v1/games
-```
-
-**Parâmetros:**
-
-| Parâmetro    | Tipo     | Descrição                        |
-| ------------ | -------- | -------------------------------- |
-| `cursor`     | number   | Cursor para paginação            |
-| `per_page`   | number   | Resultados por página (max: 100) |
-| `dates[]`    | string[] | Filtrar por datas (YYYY-MM-DD)   |
-| `seasons[]`  | number[] | Filtrar por temporadas           |
-| `team_ids[]` | number[] | Filtrar por times                |
-| `postseason` | boolean  | Apenas playoffs                  |
-| `weeks[]`    | number[] | Filtrar por semanas              |
-
-**Resposta:**
-
-```json
-{
-  "data": [
-    {
-      "id": 12345,
-      "visitor_team": { "id": 8, "full_name": "Green Bay Packers" },
-      "home_team": { "id": 18, "full_name": "Philadelphia Eagles" },
-      "home_team_score": 34,
-      "visitor_team_score": 27,
-      "season": 2024,
-      "postseason": false,
-      "status": "Final",
-      "week": 1,
-      "time": "8:20 PM ET",
-      "date": "2024-09-05"
-    }
-  ],
-  "meta": {
-    "next_cursor": 100,
-    "per_page": 25
-  }
-}
-```
-
 ## Use Cases
 
 ### Usando os Use Cases
@@ -255,24 +209,6 @@ const { data: results } = await searchPlayers('Hurts')
 
 // Jogadores de um time
 const { data: teamPlayers } = await getPlayersByTeam(18)
-```
-
-### Games
-
-```typescript
-import { getGames, getGamesBySeason, getGamesByWeek } from '@/application/use-cases'
-
-// Listar partidas
-const { data: games } = await getGames()
-
-// Partidas por temporada
-const { data: seasonGames } = await getGamesBySeason(2024)
-
-// Partidas por semana
-const { data: weekGames } = await getGamesByWeek(2024, 1)
-
-// Playoffs
-const { data: playoffGames } = await getPlayoffGames(2024)
 ```
 
 ## Tratamento de Erros

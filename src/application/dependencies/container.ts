@@ -3,12 +3,8 @@
  * Centraliza a criação de dependências e mantém instâncias singletons
  */
 
-import type { ITeamRepository, IPlayerRepository, IGameRepository } from '@/domain/repositories'
-import {
-  NflTeamRepository,
-  NflPlayerRepository,
-  NflGameRepository,
-} from '@/infrastructure/repositories'
+import type { ITeamRepository, IPlayerRepository } from '@/domain/repositories'
+import { NflTeamRepository, NflPlayerRepository } from '@/infrastructure/repositories'
 import type { NflApiClient } from '@/infrastructure/api/nfl/client'
 import { getNflApiClient } from '@/infrastructure/api/nfl/client'
 
@@ -19,7 +15,6 @@ import { getNflApiClient } from '@/infrastructure/api/nfl/client'
 export class DependencyContainer {
   private teamRepository: ITeamRepository | null = null
   private playerRepository: IPlayerRepository | null = null
-  private gameRepository: IGameRepository | null = null
   private apiClient: NflApiClient | null = null
 
   /**
@@ -53,22 +48,11 @@ export class DependencyContainer {
   }
 
   /**
-   * Obtém ou cria o repositório de partidas
-   */
-  getGameRepository(): IGameRepository {
-    if (!this.gameRepository) {
-      this.gameRepository = new NflGameRepository(this.getApiClient())
-    }
-    return this.gameRepository
-  }
-
-  /**
    * Reseta todas as dependências (útil para testes)
    */
   reset(): void {
     this.teamRepository = null
     this.playerRepository = null
-    this.gameRepository = null
     this.apiClient = null
   }
 }

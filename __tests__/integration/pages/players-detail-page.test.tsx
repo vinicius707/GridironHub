@@ -130,7 +130,7 @@ describe('PlayerDetailPage - Integração', () => {
     render(page)
 
     await waitFor(() => {
-      expect(screen.getByText('Voltar para Jogadores')).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /backToPlayers/i })).toBeInTheDocument()
     })
   })
 })
