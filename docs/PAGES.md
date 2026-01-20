@@ -444,23 +444,45 @@ export async function generateMetadata({ params }): Promise<Metadata> {
 
 ### SSG (Static Site Generation)
 
-- Páginas de lista usam SSG quando possível
-- Metadata é gerada estaticamente
+- **Página de Times**: Pré-renderizada estaticamente no build time
+  - `generateStaticParams()` gera todas as 32 páginas de times durante o build
+  - Revalidação via ISR a cada 1 hora (`revalidate: 3600`)
+  
+- **Páginas de Lista**: Usam ISR para atualização periódica
+  - Times: `revalidate: 3600` (1 hora)
+  - Jogadores: `revalidate: 1800` (30 minutos)
+  - Partidas: `revalidate: 900` (15 minutos)
 
-### SSR (Server-Side Rendering)
+### ISR (Incremental Static Regeneration)
 
-- Páginas de detalhes usam SSR para conteúdo dinâmico
-- Filtros e busca são processados no servidor
+- **Páginas de Detalhes de Jogadores**: ISR on-demand
+  - `revalidate: 1800` (30 minutos)
+  - Páginas são geradas sob demanda conforme necessário
+  
+- **Páginas de Detalhes de Partidas**: ISR on-demand
+  - `revalidate: 900` (15 minutos)
+  - Revalidação mais frequente para dados que mudam rapidamente
+
+### Estratégias de Cache
+
+1. **Times (32 páginas)**: Pré-renderizadas no build - SSG completo
+2. **Jogadores e Partidas**: ISR on-demand para evitar sobrecarga no build
+3. **Revalidação baseada em frequência de mudança**:
+   - Times: 1 hora (mudam raramente)
+   - Jogadores: 30 minutos (trades, lesões)
+   - Partidas: 15 minutos (placares, status)
 
 ### Paginação
 
 - Limite de 25 itens por página para otimizar performance
 - Uso de cursor-based pagination via API
 
-### Cache
+### Benefícios
 
-- Dados são buscados da API a cada requisição
-- Cache futuro pode ser implementado para melhorar performance
+- **Performance**: Páginas estáticas são servidas instantaneamente
+- **SEO**: Melhor indexação com conteúdo pré-renderizado
+- **Redução de carga**: Menos requisições à API durante execução
+- **Atualização automática**: ISR mantém dados atualizados sem rebuild completo
 
 ## Internacionalização
 
