@@ -30,16 +30,43 @@ Authorization: YOUR_API_KEY
 
 ### Obtendo uma API Key
 
+A API balldontlie oferece um **plano gratuito** que permite:
+
+- **5 requisições por minuto**
+- Acesso aos endpoints: Teams, Players, Games
+- Sem custo
+
+**Passos para obter sua API key:**
+
 1. Acesse [balldontlie.io](https://www.balldontlie.io/)
-2. Crie uma conta gratuita
-3. Copie sua API key
+2. Clique em "Sign Up" ou "Get Started" para criar uma conta gratuita
+3. Após criar sua conta, acesse seu dashboard
+4. Copie sua API key
 
 ### Configuração
+
+1. Copie o arquivo de exemplo:
+
+```bash
+cp .env.example .env.local
+```
+
+2. Edite o arquivo `.env.local` e adicione sua API key:
 
 ```env
 # .env.local
 BALLDONTLIE_API_KEY=sua_chave_aqui
 ```
+
+> **Importante:** Nunca commite o arquivo `.env.local` no repositório. Ele está configurado no `.gitignore` para segurança.
+
+### Limites do Plano Gratuito
+
+- **Rate Limit:** 5 requisições por minuto
+- **Endpoints disponíveis:** Teams, Players, Games
+- **Upgrade disponível:** Para mais requisições, consulte [balldontlie.io/pricing](https://www.balldontlie.io/pricing)
+
+> **Nota:** O GridironHub implementa cache agressivo para otimizar o uso da API e respeitar os limites do plano gratuito.
 
 ## Endpoints
 
