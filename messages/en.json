@@ -1,0 +1,97 @@
+{
+  "nav": {
+    "home": "Home",
+    "teams": "Teams",
+    "players": "Players",
+    "navigation": "Main navigation"
+  },
+  "language": {
+    "pt": "Português",
+    "en": "English",
+    "change": "Change language",
+    "current": "Current language",
+    "select": "Select a language"
+  },
+  "menu": {
+    "open": "Open menu",
+    "close": "Close menu",
+    "mobile": "Mobile menu"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "notFound": "Not found"
+  },
+  "home": {
+    "title": "GridironHub",
+    "subtitle": "Explore NFL teams and players. Real-time updated season data.",
+    "navigationCards": "Main Navigation",
+    "teamsCard": {
+      "title": "Teams",
+      "description": "Explore all 32 NFL teams. Information about conferences, divisions and locations.",
+      "cta": "View Teams"
+    },
+    "playersCard": {
+      "title": "Players",
+      "description": "Search and explore NFL players. Statistics, positions and current teams.",
+      "cta": "View Players"
+    },
+    "about": {
+      "title": "About GridironHub",
+      "description1": "GridironHub is a platform dedicated to providing up-to-date information about the NFL. Explore team and player data in a simple and intuitive way.",
+      "description2": "All data is obtained from the {apiLink}, ensuring reliable and up-to-date information.",
+      "description2Part1": "All data is obtained from the",
+      "description2Part2": ", ensuring reliable and up-to-date information.",
+      "apiLink": "balldontlie API",
+      "apiLinkLabel": "Open balldontlie API in new tab"
+    }
+  },
+  "teams": {
+    "title": "NFL Teams",
+    "description": "Explore all 32 NFL teams",
+    "backToTeams": "Back to Teams",
+    "conference": "Conference",
+    "division": "Division",
+    "location": "Location",
+    "abbreviation": "Abbreviation",
+    "fullName": "Full Name",
+    "viewDetails": "View details",
+    "notFound": "Team not found",
+    "errorLoading": "Error loading teams",
+    "filterByConference": "Filter by conference",
+    "filterByDivision": "Filter by division",
+    "allConferences": "All conferences",
+    "allDivisions": "All divisions",
+    "noTeamsFound": "No teams found"
+  },
+  "players": {
+    "title": "NFL Players",
+    "description": "Explore NFL players with filters and search",
+    "backToPlayers": "Back to Players",
+    "fullName": "Full Name",
+    "position": "Position",
+    "team": "Team",
+    "jerseyNumber": "Jersey Number",
+    "height": "Height",
+    "weight": "Weight",
+    "college": "College",
+    "experience": "Experience",
+    "age": "Age",
+    "year": "year",
+    "years": "years",
+    "viewDetails": "View details",
+    "notFound": "Player not found",
+    "errorLoading": "Error loading players",
+    "filterByTeam": "Filter by team",
+    "filterByPosition": "Filter by position",
+    "search": "Search player",
+    "searchPlaceholder": "Type player name...",
+    "allTeams": "All teams",
+    "allPositions": "All positions",
+    "noPlayersFound": "No players found",
+    "previousPage": "Previous page",
+    "nextPage": "Next page",
+    "page": "Page",
+    "of": "of"
+  }
+}
