@@ -66,6 +66,7 @@ Para mais detalhes:
 - [Navegação e i18n](./docs/NAVIGATION.md) - Sistema de navegação e internacionalização
 - [Páginas e Fluxos](./docs/PAGES.md) - Documentação das páginas e fluxos da aplicação
 - [API](./docs/API.md) - Integração com balldontlie API
+- [Deploy](./docs/DEPLOY.md) - Guia completo de deploy na Vercel
 
 ## 🚀 Começando
 
