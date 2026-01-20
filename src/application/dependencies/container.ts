@@ -3,10 +3,22 @@
  * Centraliza a criação de dependências e mantém instâncias singletons
  */
 
-import type { ITeamRepository, IPlayerRepository } from '@/domain/repositories'
-import { NflTeamRepository, NflPlayerRepository } from '@/infrastructure/repositories'
+import type {
+  ITeamRepository,
+  IPlayerRepository,
+  IRosterRepository,
+  IPlayerStatsRepository,
+} from '@/domain/repositories'
+import {
+  NflTeamRepository,
+  NflPlayerRepository,
+  EspnRosterRepository,
+  EspnPlayerStatsRepository,
+} from '@/infrastructure/repositories'
 import type { NflApiClient } from '@/infrastructure/api/nfl/client'
 import { getNflApiClient } from '@/infrastructure/api/nfl/client'
+import type { EspnApiClient } from '@/infrastructure/api/espn'
+import { getEspnApiClient } from '@/infrastructure/api/espn'
 
 /**
  * Container de dependências
@@ -15,7 +27,10 @@ import { getNflApiClient } from '@/infrastructure/api/nfl/client'
 export class DependencyContainer {
   private teamRepository: ITeamRepository | null = null
   private playerRepository: IPlayerRepository | null = null
+  private rosterRepository: IRosterRepository | null = null
+  private playerStatsRepository: IPlayerStatsRepository | null = null
   private apiClient: NflApiClient | null = null
+  private espnApiClient: EspnApiClient | null = null
 
   /**
    * Obtém ou cria o cliente da API NFL
@@ -48,12 +63,47 @@ export class DependencyContainer {
   }
 
   /**
+   * Obtém ou cria o cliente da API ESPN
+   */
+  getEspnApiClient(): EspnApiClient {
+    if (!this.espnApiClient) {
+      this.espnApiClient = getEspnApiClient()
+    }
+    return this.espnApiClient
+  }
+
+  /**
+   * Obtém ou cria o repositório de rosters
+   */
+  getRosterRepository(): IRosterRepository {
+    if (!this.rosterRepository) {
+      this.rosterRepository = new EspnRosterRepository(this.getEspnApiClient())
+    }
+    return this.rosterRepository
+  }
+
+  /**
+   * Obtém ou cria o repositório de estatísticas de jogadores
+   */
+  getPlayerStatsRepository(): IPlayerStatsRepository {
+    if (!this.playerStatsRepository) {
+      this.playerStatsRepository = new EspnPlayerStatsRepository(
+        this.getEspnApiClient()
+      )
+    }
+    return this.playerStatsRepository
+  }
+
+  /**
    * Reseta todas as dependências (útil para testes)
    */
   reset(): void {
     this.teamRepository = null
     this.playerRepository = null
+    this.rosterRepository = null
+    this.playerStatsRepository = null
     this.apiClient = null
+    this.espnApiClient = null
   }
 }
 
