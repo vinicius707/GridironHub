@@ -3,7 +3,6 @@
     "home": "Início",
     "teams": "Times",
     "players": "Jogadores",
-    "games": "Partidas",
     "navigation": "Navegação principal"
   },
   "language": {
@@ -70,39 +69,5 @@
     "nextPage": "Página próxima",
     "page": "Página",
     "of": "de"
-  },
-  "games": {
-    "title": "Partidas da NFL",
-    "description": "Explore partidas da NFL com filtros por temporada, semana e time",
-    "backToGames": "Voltar para Partidas",
-    "visitorTeam": "Time Visitante",
-    "homeTeam": "Time da Casa",
-    "visitorScore": "Placar Visitante",
-    "homeScore": "Placar da Casa",
-    "winner": "Vencedor",
-    "status": "Status",
-    "season": "Temporada",
-    "week": "Semana",
-    "date": "Data",
-    "type": "Tipo",
-    "scheduledTime": "Horário Agendado",
-    "regularSeason": "Temporada Regular",
-    "postseason": "Pós-Temporada",
-    "viewDetails": "Ver detalhes",
-    "notFound": "Partida não encontrada",
-    "errorLoading": "Erro ao carregar partidas",
-    "filterBySeason": "Filtrar por temporada",
-    "filterByWeek": "Filtrar por semana",
-    "filterByTeam": "Filtrar por time",
-    "filterByType": "Filtrar por tipo",
-    "allSeasons": "Todas as temporadas",
-    "allWeeks": "Todas as semanas",
-    "allTeams": "Todos os times",
-    "allTypes": "Todos os tipos",
-    "noGamesFound": "Nenhuma partida encontrada",
-    "previousPage": "Página anterior",
-    "nextPage": "Página próxima",
-    "page": "Página",
-    "search": "Buscar"
   }
 }
