@@ -105,7 +105,7 @@ export default async function TeamDetailPage({ params }: TeamDetailPageProps) {
       {/* Informações do Time */}
       <section aria-labelledby="team-info-title">
         <h2 id="team-info-title" className="sr-only">
-          Informações do time
+          {t('title')} - {t('fullName')}
         </h2>
         <div className="max-w-2xl">
           <TeamCard team={team} />
@@ -115,7 +115,7 @@ export default async function TeamDetailPage({ params }: TeamDetailPageProps) {
       {/* Informações Detalhadas */}
       <section className="mt-8 sm:mt-12" aria-labelledby="team-details-title">
         <h2 id="team-details-title" className="sr-only">
-          Detalhes do time
+          {t('title')} - {t('conference')} e {t('division')}
         </h2>
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 sm:p-8 max-w-2xl">
           <dl className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">

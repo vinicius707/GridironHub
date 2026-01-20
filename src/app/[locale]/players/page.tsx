@@ -96,7 +96,7 @@ export default async function PlayersPage({ searchParams }: PlayersPageProps) {
       {/* Filtros e Busca */}
       <section aria-labelledby="filters-title" className="mb-8">
         <h2 id="filters-title" className="sr-only">
-          Filtros de busca
+          {t('filterByTeam')}, {t('filterByPosition')}, {t('search')}
         </h2>
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 sm:p-6 mb-6">
           <form method="GET" className="space-y-4">

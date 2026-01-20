@@ -71,7 +71,7 @@ export default async function TeamsPage() {
       {/* Times agrupados por conferência e divisão */}
       <section aria-labelledby="teams-section-title">
         <h2 id="teams-section-title" className="sr-only">
-          Times da NFL organizados por conferência e divisão
+          {t('title')} - {t('conference')} e {t('division')}
         </h2>
         <div className="space-y-12">
           {conferences.map((conference) => (
