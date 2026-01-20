@@ -29,6 +29,14 @@ export async function generateMetadata({ params }: PlayerDetailPageProps): Promi
 
   try {
     const player = await getPlayerById(playerId)
+
+    if (!player) {
+      return {
+        title: `GridironHub - ${t('notFound')}`,
+        description: t('notFound'),
+      }
+    }
+
     const fullName = getPlayerFullName(player)
 
     return {
@@ -58,6 +66,10 @@ export default async function PlayerDetailPage({ params }: PlayerDetailPageProps
     player = await getPlayerById(playerId)
   } catch (error) {
     console.error('Erro ao carregar jogador:', error)
+    notFound()
+  }
+
+  if (!player) {
     notFound()
   }
 
