@@ -7,7 +7,7 @@ import type {
   FindPlayerStatsParams,
 } from '@/domain/repositories'
 import type { PlayerStatistics } from '@/domain/entities'
-import { mapPlayerStatisticsFromDTO } from '@/domain/entities'
+import { mapPlayerStatisticsFromDTO } from '@/domain/entities/player-stats'
 import type { EspnApiClient } from '@/infrastructure/api/espn'
 import { DEFAULT_SEASON } from '@/infrastructure/api/espn/config'
 
