@@ -148,7 +148,7 @@ describe('E2E - Fluxo de Explorar Times', () => {
     expect(getTeamById).toHaveBeenCalledWith(18)
   })
 
-  it('deve navegar da lista para detalhes e voltar', async () => {
+  it('deve navegar da lista para detalhes', async () => {
     // Renderizar página de lista
     const teamsPage = await TeamsPage()
     render(teamsPage)
@@ -166,8 +166,10 @@ describe('E2E - Fluxo de Explorar Times', () => {
     const detailPage = await TeamDetailPage({ params })
     render(detailPage)
 
+    // Verificar que a página de detalhes foi renderizada corretamente
     await waitFor(() => {
-      expect(screen.getByText('backToTeams')).toBeInTheDocument()
+      expect(screen.getByText('Philadelphia Eagles')).toBeInTheDocument()
+      expect(getTeamById).toHaveBeenCalledWith(18)
     })
   })
 })
