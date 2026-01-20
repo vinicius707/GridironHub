@@ -6,7 +6,6 @@
 import {
   TeamNotFoundError,
   PlayerNotFoundError,
-  GameNotFoundError,
   NotFoundError,
   UnauthorizedError,
   ValidationError,
@@ -60,14 +59,12 @@ export function mapHttpErrorToDomain(error: unknown): DomainErrorType {
 /**
  * Mapeia um erro HTTP 404 para um erro de domínio específico baseado no recurso
  */
-export function mapNotFoundError(resource: 'team' | 'player' | 'game', id: number): DomainErrorType {
+export function mapNotFoundError(resource: 'team' | 'player', id: number): DomainErrorType {
   switch (resource) {
     case 'team':
       return new TeamNotFoundError(id)
     case 'player':
       return new PlayerNotFoundError(id)
-    case 'game':
-      return new GameNotFoundError(id)
     default:
       return new NotFoundError(resource, id)
   }
