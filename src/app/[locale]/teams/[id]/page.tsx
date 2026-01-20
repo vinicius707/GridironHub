@@ -16,31 +16,19 @@ interface TeamDetailPageProps {
 }
 
 /**
- * Gera parâmetros estáticos para todas as páginas de times
- * Pre-renderiza os 32 times da NFL em build time
+ * Gera parâmetros estáticos para páginas de times
+ * 
+ * Nota: Devido ao rate limit da API (5 req/min), não pre-renderizamos todas as páginas
+ * no build time. Usamos ISR on-demand para gerar páginas conforme necessário.
+ * 
+ * Para pré-renderizar páginas específicas no build, retorne seus IDs aqui.
+ * Exemplo: return [{ locale: 'pt', id: '18' }, { locale: 'en', id: '18' }]
  */
 export async function generateStaticParams() {
-  try {
-    const teams = await getTeams()
-    
-    // Gera parâmetros para cada locale e cada time
-    const params: Array<{ locale: string; id: string }> = []
-    
-    for (const locale of routing.locales) {
-      for (const team of teams) {
-        params.push({
-          locale,
-          id: team.id.toString(),
-        })
-      }
-    }
-    
-    return params
-  } catch (error) {
-    console.error('Erro ao gerar parâmetros estáticos para times:', error)
-    // Em caso de erro, retorna array vazio (ISR on-demand será usado)
-    return []
-  }
+  // Retorna array vazio para usar ISR on-demand
+  // As páginas serão geradas sob demanda e depois cacheadas
+  // Isso evita sobrecarregar a API durante o build
+  return []
 }
 
 /**
