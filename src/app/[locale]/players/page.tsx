@@ -41,18 +41,36 @@ export default async function PlayersPage({ searchParams }: PlayersPageProps) {
   let playersResponse
   let teams = []
 
+  // #region agent log
+  fetch('http://127.0.0.1:7244/ingest/9c6cdda6-827e-41a3-a832-8de87dba0317',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app/[locale]/players/page.tsx:44',message:'PlayersPage: início do try',data:{page,cursor,search,teamId},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+  // #endregion
   try {
     // Buscar jogadores
+    // #region agent log
+    fetch('http://127.0.0.1:7244/ingest/9c6cdda6-827e-41a3-a832-8de87dba0317',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app/[locale]/players/page.tsx:46',message:'PlayersPage: chamando getPlayers',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+    // #endregion
     playersResponse = await getPlayers({
       cursor,
       perPage: 25,
       search,
       teamIds,
     })
+    // #region agent log
+    fetch('http://127.0.0.1:7244/ingest/9c6cdda6-827e-41a3-a832-8de87dba0317',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app/[locale]/players/page.tsx:52',message:'PlayersPage: getPlayers concluído',data:{playersCount:playersResponse?.data?.length||0},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+    // #endregion
 
     // Buscar times para filtro
+    // #region agent log
+    fetch('http://127.0.0.1:7244/ingest/9c6cdda6-827e-41a3-a832-8de87dba0317',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app/[locale]/players/page.tsx:54',message:'PlayersPage: chamando getTeams',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+    // #endregion
     teams = await getTeams()
+    // #region agent log
+    fetch('http://127.0.0.1:7244/ingest/9c6cdda6-827e-41a3-a832-8de87dba0317',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app/[locale]/players/page.tsx:55',message:'PlayersPage: getTeams concluído',data:{teamsCount:teams?.length||0},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+    // #endregion
   } catch (error) {
+    // #region agent log
+    fetch('http://127.0.0.1:7244/ingest/9c6cdda6-827e-41a3-a832-8de87dba0317',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app/[locale]/players/page.tsx:catch',message:'PlayersPage: ERRO capturado',data:{errorMessage:error instanceof Error?error.message:String(error),errorName:error instanceof Error?error.name:'unknown',stack:error instanceof Error?error.stack:''},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+    // #endregion
     console.error('Erro ao carregar jogadores:', error)
     notFound()
   }

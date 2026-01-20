@@ -191,14 +191,26 @@ export function createNflApiClient(config: NflApiConfig): NflApiClient {
 let nflApiClientInstance: NflApiClient | null = null
 
 export function getNflApiClient(): NflApiClient {
+  // #region agent log
+  fetch('http://127.0.0.1:7244/ingest/9c6cdda6-827e-41a3-a832-8de87dba0317',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'infrastructure/api/nfl/client.ts:193',message:'getNflApiClient: início',data:{hasInstance:!!nflApiClientInstance},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
+  // #endregion
   if (!nflApiClientInstance) {
     const apiKey = process.env.BALLDONTLIE_API_KEY
+    // #region agent log
+    fetch('http://127.0.0.1:7244/ingest/9c6cdda6-827e-41a3-a832-8de87dba0317',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'infrastructure/api/nfl/client.ts:195',message:'getNflApiClient: verificando API key',data:{hasApiKey:!!apiKey,apiKeyLength:apiKey?.length||0},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
+    // #endregion
 
     if (!apiKey) {
+      // #region agent log
+      fetch('http://127.0.0.1:7244/ingest/9c6cdda6-827e-41a3-a832-8de87dba0317',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'infrastructure/api/nfl/client.ts:197',message:'getNflApiClient: ERRO - API key não configurada',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
+      // #endregion
       throw new Error('BALLDONTLIE_API_KEY não configurada nas variáveis de ambiente')
     }
 
     nflApiClientInstance = createNflApiClient({ apiKey })
+    // #region agent log
+    fetch('http://127.0.0.1:7244/ingest/9c6cdda6-827e-41a3-a832-8de87dba0317',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'infrastructure/api/nfl/client.ts:201',message:'getNflApiClient: instância criada',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
+    // #endregion
   }
 
   return nflApiClientInstance

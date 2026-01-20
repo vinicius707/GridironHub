@@ -17,6 +17,9 @@ export function HamburgerMenu({ links, className = '', ...props }: HamburgerMenu
   const t = useTranslations('menu')
   const pathname = usePathname()
 
+  // Remove props que não são válidos para button (ref e onClick vêm do nav, não do button)
+  const { onClick: _, ref: __, ...buttonProps } = props as ComponentProps<'button'>
+
   // Fecha o menu ao clicar fora
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -77,7 +80,7 @@ export function HamburgerMenu({ links, className = '', ...props }: HamburgerMenu
         aria-controls="mobile-menu"
         aria-label={isOpen ? t('close') : t('open')}
         className={`md:hidden flex flex-col items-center justify-center w-10 h-10 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${className}`}
-        {...props}
+        {...buttonProps}
       >
         <span className="sr-only">{isOpen ? t('close') : t('open')}</span>
         <span
@@ -176,10 +179,7 @@ export function HamburgerMenu({ links, className = '', ...props }: HamburgerMenu
 
               {/* Footer com LanguageToggle */}
               <div className="border-t border-gray-200 dark:border-gray-700 p-4">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600 dark:text-gray-400">
-                    {tLang('change')}
-                  </span>
+                <div className="flex items-center justify-end">
                   <LanguageToggle variant="button" />
                 </div>
               </div>
