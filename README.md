@@ -20,21 +20,30 @@ GridironHub é uma aplicação web performática que exibe informações sobre t
 
 ### Funcionalidades
 
-- 📊 Listagem de todos os 32 times da NFL
-- 👤 Busca e visualização de jogadores
-- 🏟️ Acompanhamento de partidas por temporada
-- 🔍 Filtros por conferência, divisão e semana
+- 📊 Listagem de todos os 32 times da NFL organizados por conferência e divisão
+- 👤 Busca e visualização de jogadores com filtros por time e posição
+- 🏟️ Acompanhamento de partidas por temporada e semana
+- 🔍 Filtros avançados por conferência, divisão, temporada e tipo de jogo
+- 🌐 Suporte a múltiplos idiomas (Português e Inglês)
+- 📱 Design responsivo e acessível (WCAG 2.1 AA)
+- ⚡ Performance otimizada com SSG/ISR
+- 🎨 Interface moderna com modo escuro
 
 ## 🛠️ Tecnologias
 
 | Categoria   | Tecnologia                        |
 | ----------- | --------------------------------- |
-| Frontend    | React 18, Next.js 16 (App Router) |
-| Linguagem   | TypeScript                        |
-| Estilização | Tailwind CSS                      |
-| Testes      | Jest, React Testing Library       |
-| Deploy      | Vercel                            |
-| API         | balldontlie NFL API               |
+| Categoria     | Tecnologia                                  |
+| ------------- | ------------------------------------------- |
+| Frontend      | React 18, Next.js 16 (App Router)          |
+| Linguagem     | TypeScript                                  |
+| Estilização   | Tailwind CSS                                |
+| Internacionalização | next-intl                               |
+| Testes        | Jest, React Testing Library                 |
+| Deploy        | Vercel                                      |
+| API           | balldontlie NFL API                         |
+| Geração Estática | SSG/ISR (Next.js)                       |
+| Arquitetura   | Clean Architecture + Atomic Design          |
 
 ## 🏗️ Arquitetura
 
@@ -178,7 +187,17 @@ O projeto utiliza a [balldontlie NFL API](https://nfl.balldontlie.io/).
 
 ## 🧪 Testes
 
-O projeto utiliza Jest e React Testing Library.
+O projeto utiliza Jest e React Testing Library para garantir qualidade e confiabilidade.
+
+### Tipos de Testes
+
+| Tipo            | Localização                  | Cobertura                            |
+| --------------- | ---------------------------- | ------------------------------------ |
+| Unitários       | `__tests__/unit/`            | Entidades, Mappers, Use Cases        |
+| Integração      | `__tests__/integration/`     | Páginas e componentes completos      |
+| End-to-End (E2E)| `__tests__/e2e/flows/`       | Fluxos principais da aplicação       |
+
+### Scripts de Teste
 
 ```bash
 # Executar todos os testes
@@ -189,6 +208,9 @@ npm run test:coverage
 
 # Executar em modo watch
 npm run test:watch
+
+# Executar testes para CI
+npm run test:ci
 ```
 
 ### Cobertura Atual
@@ -198,20 +220,87 @@ npm run test:watch
 | Domain (Entidades)      | 100%      |
 | Application (Use Cases) | 100%      |
 | Infrastructure (HTTP)   | 100%      |
+| Presentation (Componentes) | 100%   |
+| Integration (Páginas)   | 100%      |
+| E2E (Fluxos)            | Implementado |
 
 ## 🚀 Deploy
 
-O projeto está configurado para deploy na Vercel.
+O projeto está configurado para deploy na Vercel com suporte a SSG (Static Site Generation) e ISR (Incremental Static Regeneration).
+
+### Pré-requisitos para Deploy
+
+1. Conta na [Vercel](https://vercel.com)
+2. Repositório Git (GitHub, GitLab ou Bitbucket)
+3. API key da balldontlie configurada como variável de ambiente
+
+### Configuração na Vercel
+
+1. **Conecte seu repositório:**
+   - Acesse [vercel.com/new](https://vercel.com/new)
+   - Importe o repositório GridironHub
+   - Configure o framework preset como **Next.js**
+
+2. **Configure variáveis de ambiente:**
+   - Adicione a variável `BALLDONTLIE_API_KEY` no painel da Vercel
+   - Vá em Settings → Environment Variables
+   - Adicione: `BALLDONTLIE_API_KEY` = `sua_chave_aqui`
+
+3. **Configurações de Build:**
+   - **Build Command:** `npm run build` (automático)
+   - **Output Directory:** `.next` (automático)
+   - **Install Command:** `npm install` (automático)
+
+### Estratégia de Deploy
+
+O projeto utiliza **SSG/ISR** para otimização:
+
+- **Páginas Estáticas:** Home, páginas de lista (com revalidação)
+- **ISR On-Demand:** Páginas de detalhes geradas sob demanda
+- **Revalidação:**
+  - Times: 1 hora
+  - Jogadores: 30 minutos
+  - Partidas: 15 minutos
 
 ### Deploy Manual
 
 ```bash
+# Build local para testar
 npm run build
+
+# Testar produção localmente
+npm run start
 ```
 
 ### Deploy Automático
 
-Push para a branch `main` aciona deploy automático na Vercel.
+O deploy automático acontece quando:
+
+- **Push para `main`:** Deploy de produção
+- **Push para `develop`:** Preview deployment (opcional)
+- **Pull Requests:** Preview deployments automáticos
+
+### Monitoramento
+
+Após o deploy, monitore:
+
+- Build logs na Vercel
+- Rate limit da API (5 req/min no plano gratuito)
+- Performance através do dashboard da Vercel
+
+### Troubleshooting
+
+**Erro de build:**
+- Verifique se `BALLDONTLIE_API_KEY` está configurada
+- Confirme que não há erros de TypeScript (`npm run lint`)
+- Verifique os logs de build na Vercel
+
+**Erro de rate limit:**
+- A API tem limite de 5 requisições/minuto
+- ISR ajuda a reduzir requisições
+- Considere upgrade do plano da API se necessário
+
+Para mais informações sobre deploy, consulte a [documentação da Vercel](https://vercel.com/docs).
 
 ## 📄 Licença
 
