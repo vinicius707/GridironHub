@@ -107,7 +107,7 @@ describe('E2E - Fluxo de Navegação Cruzada', () => {
   it('deve navegar de jogador para time e voltar', async () => {
     // 1. Acessar página de detalhes do jogador
     const playerParams = Promise.resolve({ locale: 'pt', id: '1' })
-    const playerPage = await PlayerDetailPage({ playerParams })
+    const playerPage = await PlayerDetailPage({ params: playerParams })
     render(playerPage)
 
     await waitFor(() => {
@@ -134,7 +134,7 @@ describe('E2E - Fluxo de Navegação Cruzada', () => {
   it('deve manter contexto de navegação ao alternar entre páginas', async () => {
     // Renderizar página de jogador
     const playerParams = Promise.resolve({ locale: 'pt', id: '1' })
-    const playerPage = await PlayerDetailPage({ playerParams })
+    const playerPage = await PlayerDetailPage({ params: playerParams })
     render(playerPage)
 
     await waitFor(() => {
