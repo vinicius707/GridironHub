@@ -21,7 +21,6 @@ export function Navbar({ className = '', ...props }: NavbarProps) {
     { href: '/', label: t('home') },
     { href: '/teams', label: t('teams') },
     { href: '/players', label: t('players') },
-    { href: '/games', label: t('games') },
   ]
 
   const isActive = (href: string) => {
