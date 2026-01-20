@@ -65,6 +65,22 @@ Para mais detalhes:
 - npm ou yarn
 - Chave da API balldontlie (gratuita)
 
+### Como Obter a API Key da balldontlie
+
+A API balldontlie oferece um plano gratuito que permite:
+
+- **5 requisições por minuto**
+- Acesso aos endpoints: Teams, Players, Games
+- Sem custo
+
+**Passos para obter sua API key:**
+
+1. Acesse [https://www.balldontlie.io/](https://www.balldontlie.io/)
+2. Clique em "Sign Up" ou "Get Started" para criar uma conta gratuita
+3. Após criar sua conta, acesse seu dashboard
+4. Copie sua API key
+5. Cole a API key no arquivo `.env.local` (veja instruções abaixo)
+
 ### Instalação
 
 1. Clone o repositório:
@@ -86,11 +102,13 @@ npm install
 cp .env.example .env.local
 ```
 
-4. Adicione sua chave da API no arquivo `.env.local`:
+4. Edite o arquivo `.env.local` e adicione sua chave da API:
 
 ```env
 BALLDONTLIE_API_KEY=sua_chave_aqui
 ```
+
+> **Importante:** Nunca commite o arquivo `.env.local` no repositório. Ele está configurado no `.gitignore` para segurança.
 
 5. Inicie o servidor de desenvolvimento:
 
