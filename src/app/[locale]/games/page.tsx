@@ -10,6 +10,13 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { Link } from '@/i18n/routing'
 
+/**
+ * Revalidação: ISR a cada 15 minutos (900 segundos)
+ * Partidas podem ter mudanças frequentes (placares, status)
+ * Tempo menor para garantir dados atualizados
+ */
+export const revalidate = 900
+
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('games')
   return {

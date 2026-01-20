@@ -10,6 +10,12 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { Link } from '@/i18n/routing'
 
+/**
+ * Revalidação: ISR a cada 30 minutos (1800 segundos)
+ * Lista de jogadores pode mudar com frequência (trades, novos jogadores)
+ */
+export const revalidate = 1800
+
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('players')
   return {

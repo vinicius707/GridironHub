@@ -10,6 +10,12 @@ import { Text } from '@/presentation/components/atoms'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 
+/**
+ * Revalidação: ISR a cada 1 hora (3600 segundos)
+ * Lista de times muda raramente, então 1 hora é suficiente
+ */
+export const revalidate = 3600
+
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('teams')
   return {

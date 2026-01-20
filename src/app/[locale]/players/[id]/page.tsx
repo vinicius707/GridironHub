@@ -15,6 +15,13 @@ interface PlayerDetailPageProps {
   params: Promise<{ locale: string; id: string }>
 }
 
+/**
+ * Revalidação: ISR a cada 30 minutos (1800 segundos)
+ * Dados de jogadores podem mudar (trades, lesões, estatísticas)
+ * Usamos ISR on-demand para não sobrecarregar a API no build
+ */
+export const revalidate = 1800
+
 export async function generateMetadata({ params }: PlayerDetailPageProps): Promise<Metadata> {
   const { id } = await params
   const playerId = parseInt(id, 10)

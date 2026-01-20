@@ -2,17 +2,52 @@
  * Página de Detalhes de Time - GridironHub
  */
 
-import { getTeamById } from '@/application/use-cases'
+import { getTeamById, getTeams } from '@/application/use-cases'
 import { Link } from '@/i18n/routing'
 import { getTranslations } from 'next-intl/server'
 import { TeamCard } from '@/presentation/components/molecules'
 import { Text, Button, Badge } from '@/presentation/components/atoms'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
+import { routing } from '@/i18n/routing'
 
 interface TeamDetailPageProps {
   params: Promise<{ locale: string; id: string }>
 }
+
+/**
+ * Gera parâmetros estáticos para todas as páginas de times
+ * Pre-renderiza os 32 times da NFL em build time
+ */
+export async function generateStaticParams() {
+  try {
+    const teams = await getTeams()
+    
+    // Gera parâmetros para cada locale e cada time
+    const params: Array<{ locale: string; id: string }> = []
+    
+    for (const locale of routing.locales) {
+      for (const team of teams) {
+        params.push({
+          locale,
+          id: team.id.toString(),
+        })
+      }
+    }
+    
+    return params
+  } catch (error) {
+    console.error('Erro ao gerar parâmetros estáticos para times:', error)
+    // Em caso de erro, retorna array vazio (ISR on-demand será usado)
+    return []
+  }
+}
+
+/**
+ * Revalidação: ISR a cada 1 hora (3600 segundos)
+ * Times mudam raramente, então 1 hora é suficiente
+ */
+export const revalidate = 3600
 
 export async function generateMetadata({ params }: TeamDetailPageProps): Promise<Metadata> {
   const { id } = await params

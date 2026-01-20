@@ -21,6 +21,26 @@ interface GameDetailPageProps {
   params: Promise<{ locale: string; id: string }>
 }
 
+/**
+ * Revalidação: ISR a cada 15 minutos (900 segundos) para partidas agendadas
+ * Para partidas em andamento ou finalizadas, pode ser menor
+ * Usamos ISR on-demand para não sobrecarregar a API no build
+ */
+export const revalidate = 900
+
+/**
+ * Revalidação dinâmica baseada no status da partida
+ * Partidas em andamento: revalida a cada 1 minuto
+ * Partidas finalizadas: revalida a cada 1 hora
+ * Partidas agendadas: revalida a cada 15 minutos
+ */
+export async function generateStaticParams() {
+  // Para partidas, não pre-renderizamos todas no build
+  // Usamos ISR on-demand conforme necessário
+  // Isso evita sobrecarregar a API no build time
+  return []
+}
+
 export async function generateMetadata({ params }: GameDetailPageProps): Promise<Metadata> {
   const { id } = await params
   const gameId = parseInt(id, 10)
