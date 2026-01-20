@@ -4,7 +4,7 @@
 
 import type { IRosterRepository, FindRosterParams } from '@/domain/repositories'
 import type { Roster } from '@/domain/entities'
-import { mapRosterFromDTO } from '@/domain/entities'
+import { mapRosterFromDTO } from '@/domain/entities/roster'
 import type { EspnApiClient } from '@/infrastructure/api/espn'
 import { DEFAULT_SEASON } from '@/infrastructure/api/espn/config'
 
