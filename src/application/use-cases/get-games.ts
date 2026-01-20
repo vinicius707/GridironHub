@@ -1,35 +1,27 @@
 /**
  * Use Case: Buscar partidas da NFL
+ * Refatorado para usar repositórios e Dependency Injection
  */
 
-import { getNflApiClient } from '@/infrastructure/api/nfl/client'
-import type { GetGamesParams } from '@/infrastructure/api/nfl/client'
+import type { FindGamesParams } from '@/domain/repositories'
 import type { Game } from '@/domain/entities'
-import { mapGameFromDTO, mapTeamFromDTO } from '@/domain/entities'
 import type { PaginatedResponse } from '@/shared/types'
-import { mapPaginationMeta } from '@/shared/types'
+import { getContainer } from '@/application/dependencies'
 
 /**
  * Busca jogos com paginação e filtros
  */
-export async function getGames(params?: GetGamesParams): Promise<PaginatedResponse<Game>> {
-  const client = getNflApiClient()
-  const response = await client.getGames(params)
-
-  return {
-    data: response.data.map((dto) => mapGameFromDTO(dto, mapTeamFromDTO)),
-    meta: mapPaginationMeta(response.meta),
-  }
+export async function getGames(params?: FindGamesParams): Promise<PaginatedResponse<Game>> {
+  const repository = getContainer().getGameRepository()
+  return repository.findMany(params)
 }
 
 /**
  * Busca um jogo específico pelo ID
  */
-export async function getGameById(id: number): Promise<Game> {
-  const client = getNflApiClient()
-  const response = await client.getGameById(id)
-
-  return mapGameFromDTO(response.data, mapTeamFromDTO)
+export async function getGameById(id: number): Promise<Game | null> {
+  const repository = getContainer().getGameRepository()
+  return repository.findById(id)
 }
 
 /**
@@ -37,9 +29,10 @@ export async function getGameById(id: number): Promise<Game> {
  */
 export async function getGamesBySeason(
   season: number,
-  params?: Omit<GetGamesParams, 'seasons'>
+  params?: Omit<FindGamesParams, 'seasons'>
 ): Promise<PaginatedResponse<Game>> {
-  return getGames({ ...params, seasons: [season] })
+  const repository = getContainer().getGameRepository()
+  return repository.findBySeason(season, params)
 }
 
 /**
@@ -47,9 +40,10 @@ export async function getGamesBySeason(
  */
 export async function getGamesByTeam(
   teamId: number,
-  params?: Omit<GetGamesParams, 'teamIds'>
+  params?: Omit<FindGamesParams, 'teamIds'>
 ): Promise<PaginatedResponse<Game>> {
-  return getGames({ ...params, teamIds: [teamId] })
+  const repository = getContainer().getGameRepository()
+  return repository.findByTeam(teamId, params)
 }
 
 /**
@@ -58,9 +52,10 @@ export async function getGamesByTeam(
 export async function getGamesByWeek(
   season: number,
   week: number,
-  params?: Omit<GetGamesParams, 'seasons' | 'weeks'>
+  params?: Omit<FindGamesParams, 'seasons' | 'weeks'>
 ): Promise<PaginatedResponse<Game>> {
-  return getGames({ ...params, seasons: [season], weeks: [week] })
+  const repository = getContainer().getGameRepository()
+  return repository.findByWeek(season, week, params)
 }
 
 /**
@@ -68,7 +63,8 @@ export async function getGamesByWeek(
  */
 export async function getPlayoffGames(
   season: number,
-  params?: Omit<GetGamesParams, 'seasons' | 'postseason'>
+  params?: Omit<FindGamesParams, 'seasons' | 'postseason'>
 ): Promise<PaginatedResponse<Game>> {
-  return getGames({ ...params, seasons: [season], postseason: true })
+  const repository = getContainer().getGameRepository()
+  return repository.findPlayoffs(season, params)
 }

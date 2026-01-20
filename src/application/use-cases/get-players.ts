@@ -1,35 +1,27 @@
 /**
  * Use Case: Buscar jogadores da NFL
+ * Refatorado para usar repositórios e Dependency Injection
  */
 
-import { getNflApiClient } from '@/infrastructure/api/nfl/client'
-import type { GetPlayersParams } from '@/infrastructure/api/nfl/client'
+import type { FindPlayersParams } from '@/domain/repositories'
 import type { Player } from '@/domain/entities'
-import { mapPlayerFromDTO, mapTeamFromDTO } from '@/domain/entities'
 import type { PaginatedResponse } from '@/shared/types'
-import { mapPaginationMeta } from '@/shared/types'
+import { getContainer } from '@/application/dependencies'
 
 /**
  * Busca jogadores com paginação e filtros
  */
-export async function getPlayers(params?: GetPlayersParams): Promise<PaginatedResponse<Player>> {
-  const client = getNflApiClient()
-  const response = await client.getPlayers(params)
-
-  return {
-    data: response.data.map((dto) => mapPlayerFromDTO(dto, mapTeamFromDTO)),
-    meta: mapPaginationMeta(response.meta),
-  }
+export async function getPlayers(params?: FindPlayersParams): Promise<PaginatedResponse<Player>> {
+  const repository = getContainer().getPlayerRepository()
+  return repository.findMany(params)
 }
 
 /**
  * Busca um jogador específico pelo ID
  */
-export async function getPlayerById(id: number): Promise<Player> {
-  const client = getNflApiClient()
-  const response = await client.getPlayerById(id)
-
-  return mapPlayerFromDTO(response.data, mapTeamFromDTO)
+export async function getPlayerById(id: number): Promise<Player | null> {
+  const repository = getContainer().getPlayerRepository()
+  return repository.findById(id)
 }
 
 /**
@@ -37,9 +29,10 @@ export async function getPlayerById(id: number): Promise<Player> {
  */
 export async function getPlayersByTeam(
   teamId: number,
-  params?: Omit<GetPlayersParams, 'teamIds'>
+  params?: Omit<FindPlayersParams, 'teamIds'>
 ): Promise<PaginatedResponse<Player>> {
-  return getPlayers({ ...params, teamIds: [teamId] })
+  const repository = getContainer().getPlayerRepository()
+  return repository.findByTeam(teamId, params)
 }
 
 /**
@@ -47,7 +40,8 @@ export async function getPlayersByTeam(
  */
 export async function searchPlayers(
   search: string,
-  params?: Omit<GetPlayersParams, 'search'>
+  params?: Omit<FindPlayersParams, 'search'>
 ): Promise<PaginatedResponse<Player>> {
-  return getPlayers({ ...params, search })
+  const repository = getContainer().getPlayerRepository()
+  return repository.search(search, params)
 }

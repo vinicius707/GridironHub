@@ -1,21 +1,9 @@
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
-import { Geist, Geist_Mono } from 'next/font/google'
 import type { Metadata } from 'next'
-import '../globals.css'
 import { routing } from '@/i18n/routing'
 import { PageLayout } from '@/presentation/components/templates'
-
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-})
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-})
 
 export const metadata: Metadata = {
   title: 'GridironHub - NFL Stats & Information',
@@ -47,16 +35,11 @@ export default async function LocaleLayout({
   // Carrega mensagens de tradução
   const messages = await getMessages()
 
-  // Determina o lang do HTML baseado no locale
-  const htmlLang = locale === 'pt' ? 'pt-BR' : 'en-US'
-
+  // Não renderizamos <html> e <body> aqui - eles vêm do RootLayout
+  // Este layout apenas fornece o conteúdo e configurações do locale
   return (
-    <html lang={htmlLang}>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <NextIntlClientProvider messages={messages}>
-          <PageLayout>{children}</PageLayout>
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <NextIntlClientProvider messages={messages}>
+      <PageLayout>{children}</PageLayout>
+    </NextIntlClientProvider>
   )
 }

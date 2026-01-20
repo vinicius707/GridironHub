@@ -1,164 +1,164 @@
 /**
- * Testes unitários para o use case getPlayers
+ * Testes para use cases de jogadores
+ * Atualizado para usar repositórios via Dependency Injection
  */
 
-import {
-  getPlayers,
-  getPlayerById,
-  getPlayersByTeam,
-  searchPlayers,
-} from '@/application/use-cases/get-players'
-import { getNflApiClient } from '@/infrastructure/api/nfl/client'
-import type { PlayerDTO, TeamDTO } from '@/domain/entities'
+import { getPlayers, getPlayerById, getPlayersByTeam, searchPlayers } from '@/application/use-cases'
+import type { IPlayerRepository, FindPlayersParams } from '@/domain/repositories'
+import type { Player } from '@/domain/entities'
+import type { PaginatedResponse } from '@/shared/types'
+import { getContainer } from '@/application/dependencies'
 
-// Mock do cliente da API
-jest.mock('@/infrastructure/api/nfl/client', () => ({
-  getNflApiClient: jest.fn(),
+// Mock do container de dependências
+jest.mock('@/application/dependencies', () => ({
+  getContainer: jest.fn(),
 }))
 
-describe('getPlayers Use Case', () => {
-  const mockTeamDTO: TeamDTO = {
-    id: 18,
-    conference: 'NFC',
-    division: 'EAST',
-    location: 'Philadelphia',
-    name: 'Eagles',
-    full_name: 'Philadelphia Eagles',
-    abbreviation: 'PHI',
+describe('Use Cases - Players', () => {
+  let mockRepository: jest.Mocked<IPlayerRepository>
+  let mockContainer: { getPlayerRepository: jest.Mock }
+
+  const mockPlayer: Player = {
+    id: 1,
+    firstName: 'Jalen',
+    lastName: 'Hurts',
+    position: 'Quarterback',
+    positionAbbreviation: 'QB',
+    height: '6\'1"',
+    weight: '223 lbs',
+    jerseyNumber: '1',
+    college: 'Oklahoma',
+    experience: '4',
+    age: 25,
+    team: {
+      id: 18,
+      conference: 'NFC',
+      division: 'EAST',
+      location: 'Philadelphia',
+      name: 'Eagles',
+      fullName: 'Philadelphia Eagles',
+      abbreviation: 'PHI',
+    },
   }
 
-  const mockPlayersDTO: PlayerDTO[] = [
-    {
-      id: 490,
-      first_name: 'Jalen',
-      last_name: 'Hurts',
-      position: 'Quarterback',
-      position_abbreviation: 'QB',
-      height: '6\'1"',
-      weight: '223 lbs',
-      jersey_number: '1',
-      college: 'Oklahoma',
-      experience: '5',
-      age: 26,
-      team: mockTeamDTO,
+  const mockPlayersResponse: PaginatedResponse<Player> = {
+    data: [mockPlayer],
+    meta: {
+      nextCursor: null,
+      perPage: 25,
     },
-    {
-      id: 491,
-      first_name: 'AJ',
-      last_name: 'Brown',
-      position: 'Wide Receiver',
-      position_abbreviation: 'WR',
-      height: '6\'1"',
-      weight: '226 lbs',
-      jersey_number: '11',
-      college: 'Ole Miss',
-      experience: '6',
-      age: 27,
-      team: mockTeamDTO,
-    },
-  ]
-
-  const mockMeta = {
-    next_cursor: 100,
-    per_page: 25,
-  }
-
-  const mockClient = {
-    getPlayers: jest.fn(),
-    getPlayerById: jest.fn(),
   }
 
   beforeEach(() => {
+    // Cria mock do repositório
+    mockRepository = {
+      findMany: jest.fn(),
+      findById: jest.fn(),
+      findByTeam: jest.fn(),
+      search: jest.fn(),
+    } as unknown as jest.Mocked<IPlayerRepository>
+
+    // Cria mock do container
+    mockContainer = {
+      getPlayerRepository: jest.fn().mockReturnValue(mockRepository),
+    }
+
+    // Configura o mock do getContainer
+    ;(getContainer as jest.Mock).mockReturnValue(mockContainer)
+  })
+
+  afterEach(() => {
     jest.clearAllMocks()
-    ;(getNflApiClient as jest.Mock).mockReturnValue(mockClient)
   })
 
   describe('getPlayers', () => {
-    it('deve retornar lista paginada de jogadores', async () => {
-      mockClient.getPlayers.mockResolvedValueOnce({
-        data: mockPlayersDTO,
-        meta: mockMeta,
-      })
+    it('deve retornar jogadores com paginação', async () => {
+      mockRepository.findMany.mockResolvedValue(mockPlayersResponse)
 
       const result = await getPlayers()
 
-      expect(result.data).toHaveLength(2)
-      expect(result.meta.nextCursor).toBe(100)
-      expect(result.meta.perPage).toBe(25)
+      expect(result).toEqual(mockPlayersResponse)
+      expect(mockContainer.getPlayerRepository).toHaveBeenCalledTimes(1)
+      expect(mockRepository.findMany).toHaveBeenCalledWith(undefined)
     })
 
-    it('deve mapear jogadores corretamente', async () => {
-      mockClient.getPlayers.mockResolvedValueOnce({
-        data: mockPlayersDTO,
-        meta: mockMeta,
-      })
+    it('deve passar parâmetros corretos para o repositório', async () => {
+      const params: FindPlayersParams = {
+        perPage: 50,
+        cursor: 100,
+      }
+      mockRepository.findMany.mockResolvedValue(mockPlayersResponse)
 
-      const result = await getPlayers()
+      await getPlayers(params)
 
-      expect(result.data[0]?.firstName).toBe('Jalen')
-      expect(result.data[0]?.lastName).toBe('Hurts')
-      expect(result.data[0]?.team?.fullName).toBe('Philadelphia Eagles')
-    })
-
-    it('deve passar parâmetros para o cliente', async () => {
-      mockClient.getPlayers.mockResolvedValueOnce({
-        data: [],
-        meta: { next_cursor: null, per_page: 10 },
-      })
-
-      await getPlayers({ cursor: 50, perPage: 10 })
-
-      expect(mockClient.getPlayers).toHaveBeenCalledWith({
-        cursor: 50,
-        perPage: 10,
-      })
+      expect(mockRepository.findMany).toHaveBeenCalledWith(params)
     })
   })
 
   describe('getPlayerById', () => {
-    it('deve retornar um jogador específico', async () => {
-      mockClient.getPlayerById.mockResolvedValueOnce({ data: mockPlayersDTO[0] })
+    it('deve retornar um jogador específico pelo ID', async () => {
+      mockRepository.findById.mockResolvedValue(mockPlayer)
 
-      const result = await getPlayerById(490)
+      const result = await getPlayerById(1)
 
-      expect(result.id).toBe(490)
-      expect(result.firstName).toBe('Jalen')
-      expect(result.lastName).toBe('Hurts')
+      expect(result).toEqual(mockPlayer)
+      expect(mockContainer.getPlayerRepository).toHaveBeenCalledTimes(1)
+      expect(mockRepository.findById).toHaveBeenCalledWith(1)
+    })
+
+    it('deve retornar null quando jogador não é encontrado', async () => {
+      mockRepository.findById.mockResolvedValue(null)
+
+      const result = await getPlayerById(999)
+
+      expect(result).toBeNull()
+      expect(mockRepository.findById).toHaveBeenCalledWith(999)
     })
   })
 
   describe('getPlayersByTeam', () => {
-    it('deve buscar jogadores por time', async () => {
-      mockClient.getPlayers.mockResolvedValueOnce({
-        data: mockPlayersDTO,
-        meta: mockMeta,
-      })
+    it('deve retornar jogadores de um time específico', async () => {
+      mockRepository.findByTeam.mockResolvedValue(mockPlayersResponse)
 
-      await getPlayersByTeam(18)
+      const result = await getPlayersByTeam(18)
 
-      expect(mockClient.getPlayers).toHaveBeenCalledWith(
-        expect.objectContaining({
-          teamIds: [18],
-        })
-      )
+      expect(result).toEqual(mockPlayersResponse)
+      expect(mockContainer.getPlayerRepository).toHaveBeenCalledTimes(1)
+      expect(mockRepository.findByTeam).toHaveBeenCalledWith(18, undefined)
+    })
+
+    it('deve passar parâmetros adicionais corretamente', async () => {
+      const params: Omit<FindPlayersParams, 'teamIds'> = {
+        perPage: 100,
+      }
+      mockRepository.findByTeam.mockResolvedValue(mockPlayersResponse)
+
+      await getPlayersByTeam(18, params)
+
+      expect(mockRepository.findByTeam).toHaveBeenCalledWith(18, params)
     })
   })
 
   describe('searchPlayers', () => {
-    it('deve buscar jogadores por nome', async () => {
-      mockClient.getPlayers.mockResolvedValueOnce({
-        data: [mockPlayersDTO[0]],
-        meta: { next_cursor: null, per_page: 25 },
-      })
+    it('deve retornar jogadores filtrados por busca', async () => {
+      mockRepository.search.mockResolvedValue(mockPlayersResponse)
 
       const result = await searchPlayers('Hurts')
 
-      expect(mockClient.getPlayers).toHaveBeenCalledWith(
-        expect.objectContaining({
-          search: 'Hurts',
-        })
-      )
-      expect(result.data).toHaveLength(1)
+      expect(result).toEqual(mockPlayersResponse)
+      expect(mockContainer.getPlayerRepository).toHaveBeenCalledTimes(1)
+      expect(mockRepository.search).toHaveBeenCalledWith('Hurts', undefined)
+    })
+
+    it('deve passar parâmetros adicionais corretamente', async () => {
+      const params: Omit<FindPlayersParams, 'search'> = {
+        perPage: 10,
+      }
+      mockRepository.search.mockResolvedValue(mockPlayersResponse)
+
+      await searchPlayers('Smith', params)
+
+      expect(mockRepository.search).toHaveBeenCalledWith('Smith', params)
     })
   })
 })

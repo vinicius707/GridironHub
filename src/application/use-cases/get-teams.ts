@@ -1,37 +1,33 @@
 /**
  * Use Case: Buscar times da NFL
+ * Refatorado para usar repositórios e Dependency Injection
  */
 
-import { getNflApiClient } from '@/infrastructure/api/nfl/client'
 import type { Team } from '@/domain/entities'
-import { mapTeamFromDTO } from '@/domain/entities'
+import { getContainer } from '@/application/dependencies'
 
 /**
  * Busca todos os times da NFL
  */
 export async function getTeams(): Promise<Team[]> {
-  const client = getNflApiClient()
-  const response = await client.getTeams()
-
-  return response.data.map(mapTeamFromDTO)
+  const repository = getContainer().getTeamRepository()
+  return repository.findAll()
 }
 
 /**
  * Busca um time específico pelo ID
  */
-export async function getTeamById(id: number): Promise<Team> {
-  const client = getNflApiClient()
-  const response = await client.getTeamById(id)
-
-  return mapTeamFromDTO(response.data)
+export async function getTeamById(id: number): Promise<Team | null> {
+  const repository = getContainer().getTeamRepository()
+  return repository.findById(id)
 }
 
 /**
  * Busca times por conferência
  */
 export async function getTeamsByConference(conference: 'AFC' | 'NFC'): Promise<Team[]> {
-  const teams = await getTeams()
-  return teams.filter((team) => team.conference === conference)
+  const repository = getContainer().getTeamRepository()
+  return repository.findByConference(conference)
 }
 
 /**
@@ -41,6 +37,6 @@ export async function getTeamsByDivision(
   conference: 'AFC' | 'NFC',
   division: 'EAST' | 'WEST' | 'NORTH' | 'SOUTH'
 ): Promise<Team[]> {
-  const teams = await getTeams()
-  return teams.filter((team) => team.conference === conference && team.division === division)
+  const repository = getContainer().getTeamRepository()
+  return repository.findByDivision(conference, division)
 }

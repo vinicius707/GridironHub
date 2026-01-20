@@ -22,5 +22,23 @@
     "loading": "Carregando...",
     "error": "Erro",
     "notFound": "Não encontrado"
+  },
+  "teams": {
+    "title": "Times da NFL",
+    "description": "Explore todos os 32 times da NFL",
+    "backToTeams": "Voltar para Times",
+    "conference": "Conferência",
+    "division": "Divisão",
+    "location": "Localização",
+    "abbreviation": "Abreviação",
+    "fullName": "Nome Completo",
+    "viewDetails": "Ver detalhes",
+    "notFound": "Time não encontrado",
+    "errorLoading": "Erro ao carregar times",
+    "filterByConference": "Filtrar por conferência",
+    "filterByDivision": "Filtrar por divisão",
+    "allConferences": "Todas as conferências",
+    "allDivisions": "Todas as divisões",
+    "noTeamsFound": "Nenhum time encontrado"
   }
 }

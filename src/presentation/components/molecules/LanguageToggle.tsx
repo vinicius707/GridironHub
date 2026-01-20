@@ -48,15 +48,16 @@ export function LanguageToggle({
     )
   }
 
-  return (
-    <Button
-      variant="outline"
-      size="sm"
-      onClick={toggleLanguage}
-      aria-label={`${t('change')}: ${currentLanguage}`}
-      className={className}
-      {...props}
-    >
+      const { onClick: _, ref: __, ...buttonProps } = props as React.ComponentProps<'button'>
+      return (
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={toggleLanguage}
+          aria-label={`${t('change')}: ${currentLanguage}`}
+          className={className}
+          {...buttonProps}
+        >
       <span className="flex items-center gap-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"

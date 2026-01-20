@@ -3,8 +3,8 @@
  * Card de exibição de um time da NFL
  */
 
-import Link from 'next/link'
 import type { Team } from '@/domain/entities'
+import { Link } from '@/i18n/routing'
 import { Badge } from '@/presentation/components/atoms'
 import { Text } from '@/presentation/components/atoms'
 
