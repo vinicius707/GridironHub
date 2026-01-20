@@ -41,7 +41,6 @@ As rotas seguem o padrão `/[locale]/*`:
 - `/en` → Home (English)
 - `/teams` ou `/en/teams` → Times/Teams
 - `/players` ou `/en/players` → Jogadores/Players
-- `/games` ou `/en/games` → Partidas/Games
 
 **Nota:** Com `localePrefix: 'as-needed'`, o locale padrão (`pt`) não aparece na URL.
 
@@ -261,7 +260,6 @@ const navLinks = [
   { href: '/', label: t('home') },
   { href: '/teams', label: t('teams') },
   { href: '/players', label: t('players') },
-  { href: '/games', label: t('games') },
   { href: '/stats', label: t('stats') }, // Novo link
 ]
 ```
@@ -310,7 +308,6 @@ npm test __tests__/unit/presentation/templates/PageLayout.test.tsx
     "home": "Início",
     "teams": "Times",
     "players": "Jogadores",
-    "games": "Partidas",
     "navigation": "Navegação principal"
   },
   "language": {

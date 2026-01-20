@@ -123,12 +123,10 @@ O projeto utiliza uma estratégia híbrida:
 - **Páginas de lista:**
   - `/teams` - Revalidação: 1 hora
   - `/players` - Revalidação: 30 minutos
-  - `/games` - Revalidação: 15 minutos
 
 - **Páginas de detalhes:**
   - `/teams/[id]` - Revalidação: 1 hora
   - `/players/[id]` - Revalidação: 30 minutos
-  - `/games/[id]` - Revalidação: 15 minutos
 
 ### Benefícios
 

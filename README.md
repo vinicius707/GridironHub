@@ -16,14 +16,13 @@ Aplicação web para visualização de dados da NFL (National Football League), 
 
 ## 📖 Sobre o Projeto
 
-GridironHub é uma aplicação web performática que exibe informações sobre times, jogadores e partidas da NFL, consumindo a API [balldontlie](https://nfl.balldontlie.io/).
+GridironHub é uma aplicação web performática que exibe informações sobre times e jogadores da NFL, consumindo a API [balldontlie](https://nfl.balldontlie.io/).
 
 ### Funcionalidades
 
 - 📊 Listagem de todos os 32 times da NFL organizados por conferência e divisão
 - 👤 Busca e visualização de jogadores com filtros por time e posição
-- 🏟️ Acompanhamento de partidas por temporada e semana
-- 🔍 Filtros avançados por conferência, divisão, temporada e tipo de jogo
+- 🔍 Filtros avançados por conferência, divisão, time e posição
 - 🌐 Suporte a múltiplos idiomas (Português e Inglês)
 - 📱 Design responsivo e acessível (WCAG 2.1 AA)
 - ⚡ Performance otimizada com SSG/ISR
@@ -81,7 +80,7 @@ Para mais detalhes:
 A API balldontlie oferece um plano gratuito que permite:
 
 - **5 requisições por minuto**
-- Acesso aos endpoints: Teams, Players, Games
+- Acesso aos endpoints: Teams, Players
 - Sem custo
 
 **Passos para obter sua API key:**

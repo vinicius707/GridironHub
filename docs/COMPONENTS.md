@@ -34,7 +34,7 @@ O projeto utiliza a metodologia **Atomic Design** proposta por Brad Frost, que o
 ```
 ┌─────────────────────────────────────────────────────────┐
 │                     PÁGINAS                              │
-│  (Home, Times, Jogadores, Partidas)                     │
+│  (Home, Times, Jogadores)                               │
 └────────────────────┬────────────────────────────────────┘
                      │ usa
 ┌────────────────────▼────────────────────────────────────┐
@@ -44,12 +44,12 @@ O projeto utiliza a metodologia **Atomic Design** proposta por Brad Frost, que o
                      │ usa
 ┌────────────────────▼────────────────────────────────────┐
 │                  ORGANISMOS                             │
-│  (TeamGrid, PlayerTable, GamesTable)                    │
+│  (TeamGrid, PlayerTable)                                │
 └────────────────────┬────────────────────────────────────┘
                      │ usa
 ┌────────────────────▼────────────────────────────────────┐
 │                   MOLÉCULAS                             │
-│  (TeamCard, PlayerRow, GameScore)                       │
+│  (TeamCard, PlayerRow)                                  │
 └────────────────────┬────────────────────────────────────┘
                      │ usa
 ┌────────────────────▼────────────────────────────────────┐
@@ -267,34 +267,6 @@ interface PlayerRowProps {
 
 ---
 
-#### GameScore
-
-Exibição de placar de uma partida.
-
-**Props:**
-
-```typescript
-interface GameScoreProps {
-  game: Game
-  showDate?: boolean
-}
-```
-
-**Exemplo:**
-
-```tsx
-<GameScore game={game} showDate />
-```
-
-**Estrutura:**
-
-- Times (visitante e casa)
-- Placar (se finalizado)
-- Status do jogo
-- Semana e temporada
-
----
-
 ## Organismos
 
 Blocos funcionais maiores, combinando moléculas e átomos.
@@ -328,18 +300,6 @@ Tabela de jogadores.
 - Listagem paginada de jogadores
 - Ordenação por colunas
 - Filtros por posição/time
-
----
-
-#### GamesTable
-
-Tabela de partidas.
-
-**Planejado para:**
-
-- Listagem de partidas por temporada
-- Filtros por semana/time
-- Visualização de resultados
 
 ---
 
@@ -496,11 +456,11 @@ export function Component({ ... }: ComponentProps) {
 ### Fase 1 (Atual)
 
 - ✅ Átomos básicos (Button, Text, Badge, Skeleton)
-- ✅ Moléculas básicas (TeamCard, PlayerRow, GameScore)
+- ✅ Moléculas básicas (TeamCard, PlayerRow)
 
 ### Fase 2 (Próxima)
 
-- ⏳ Organismos (TeamGrid, PlayerTable, GamesTable)
+- ⏳ Organismos (TeamGrid, PlayerTable)
 - ⏳ Templates (PageLayout, ListLayout)
 
 ### Fase 3 (Futuro)
