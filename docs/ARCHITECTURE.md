@@ -11,6 +11,7 @@ Este documento descreve a arquitetura do projeto GridironHub, baseada em **Clean
 - [Atomic Design](#atomic-design)
 - [Padrões e Convenções](#padrões-e-convenções)
 - [Extensibilidade](#extensibilidade)
+- [Documentação Relacionada](#documentação-relacionada)
 
 ## Visão Geral
 
