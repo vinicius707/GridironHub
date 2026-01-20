@@ -4,6 +4,7 @@ import { useLocale, useTranslations } from 'next-intl'
 import { useRouter, usePathname } from '@/i18n/routing'
 import { Button } from '@/presentation/components/atoms'
 import type { ComponentProps } from 'react'
+import React from 'react'
 
 export interface LanguageToggleProps extends Omit<ComponentProps<'div'>, 'children'> {
   variant?: 'button' | 'select'
@@ -48,16 +49,18 @@ export function LanguageToggle({
     )
   }
 
-      const { onClick: _, ref: __, ...buttonProps } = props as React.ComponentProps<'button'>
-      return (
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={toggleLanguage}
-          aria-label={`${t('change')}: ${currentLanguage}`}
-          className={className}
-          {...buttonProps}
-        >
+  // Remove props que não são válidos para button (ref vem do div, não do button)
+  const { onClick: _, ref: __, ...buttonProps } = props as React.ComponentProps<'button'>
+
+  return (
+    <Button
+      variant="outline"
+      size="sm"
+      onClick={toggleLanguage}
+      aria-label={`${t('change')}: ${currentLanguage}`}
+      className={className}
+      {...buttonProps}
+    >
       <span className="flex items-center gap-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"

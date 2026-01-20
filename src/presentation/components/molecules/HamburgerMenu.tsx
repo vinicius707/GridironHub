@@ -6,7 +6,7 @@ import { Link, usePathname } from '@/i18n/routing'
 import { LanguageToggle } from './LanguageToggle'
 import type { ComponentProps } from 'react'
 
-export interface HamburgerMenuProps extends Omit<ComponentProps<'nav'>, 'children' | 'ref'> {
+export interface HamburgerMenuProps extends Omit<ComponentProps<'nav'>, 'children'> {
   links: Array<{ href: string; label: string }>
 }
 
@@ -17,7 +17,7 @@ export function HamburgerMenu({ links, className = '', ...props }: HamburgerMenu
   const t = useTranslations('menu')
   const pathname = usePathname()
 
-  // Remove props que não são válidos para button
+  // Remove props que não são válidos para button (ref e onClick vêm do nav, não do button)
   const { onClick: _, ref: __, ...buttonProps } = props as ComponentProps<'button'>
 
   // Fecha o menu ao clicar fora
@@ -179,7 +179,7 @@ export function HamburgerMenu({ links, className = '', ...props }: HamburgerMenu
 
               {/* Footer com LanguageToggle */}
               <div className="border-t border-gray-200 dark:border-gray-700 p-4">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-end">
                   <LanguageToggle variant="button" />
                 </div>
               </div>
